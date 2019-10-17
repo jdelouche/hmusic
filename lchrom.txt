@@ -1,0 +1,16 @@
+lc1
+c1
+ld1
+d1
+le1
+e1
+f1
+lg1
+g1
+la1
+a1
+lb1
+b1
+c2
+fin
+q

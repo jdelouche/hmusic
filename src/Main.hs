@@ -9,7 +9,7 @@ writem :: Midi -> IO ()
 writem m = exportFile "mymusic.mid" m
 push = writem . codec
 midiout :: Track Ticks -> [String] -> IO ()
-midiout xs ys = do push xs ; midadd xs ys
+midiout xs ys = do push xs ;print xs; midadd xs ys
 showAddition :: (Show a1, Show a2) => a1 -> a2 -> IO ()
 showAddition x m = do print x; print m
 maybeAddition :: Track Ticks -> [String] -> String -> IO ()

@@ -6,8 +6,7 @@ f2
 e2
 d2
 c2
-lb1
-pause
+lb1-
 #m2
 lb1
 c2
@@ -16,8 +15,7 @@ e2
 d2
 c2
 g1
-a1
-pause
+a1-
 #m3
 a1
 lb1
@@ -26,8 +24,7 @@ d2
 c2
 lb1
 a1
-g1
-pause
+g1-
 #m4
 g1
 a1
@@ -36,7 +33,6 @@ c2
 lb1
 a1
 g1
-f1
-pause
+f1-
 end
 q

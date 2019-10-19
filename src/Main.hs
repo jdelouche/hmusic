@@ -31,4 +31,4 @@ maybeMidadd xs ys x = if (x/="") then edition xs ys x else midadd xs ys
 midadd :: [(Int, Message)] -> [String] -> IO ()
 midadd xs ys = do x<-getLine ; maybeMidadd xs ys x
 main :: IO ()
-main = midadd [(0,Text "Pad"),(0,Text "Pad")] [""]
+main = midadd [(0,Text "Start"),(0,Text "Start")] ["start"]

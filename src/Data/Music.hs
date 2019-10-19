@@ -1,7 +1,7 @@
 module Data.Music where
 import Prelude
 import Codec.Midi
-notmi::Num a => [Char] -> [(a, Message)]
+notmi::Num a => String -> [(a, Message)]
 notmi "pause" = [(0,  NoteOn 0 60 0),(24, NoteOff 0 60 0)]
 notmi ('#':s) = [(0,Text s)]
 notmi "end"   = [(0,TrackEnd)]

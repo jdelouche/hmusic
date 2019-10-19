@@ -41,8 +41,10 @@ test-suite tests
    type: exitcode-stdio-1.0
    hs-source-dirs: src
    ghc-options: -O3 -Wall
+   other-modules:       Data.Music
    build-depends:
-       base < 5
+       HCodecs
+     , base < 5
      , bytestring
      , random
      , semigroups

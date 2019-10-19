@@ -7,9 +7,11 @@ notmi "end"   = [(0,TrackEnd)]
 notmi "fin"   = [(0,TrackEnd)]
 notmi (a:l:o:d:[]) = case d of
                           '-' -> fmap blanche (notmi (a:l:o:[]))
+                          '_' -> fmap (blanche . blanche) (notmi (a:l:o:[]))
                           _   -> notmi (a:l:o:[])
 notmi (x:y:z:[]) = case z of
                           '-' -> fmap blanche (notmi (x:y:[]))
+                          '_' -> fmap (blanche . blanche) (notmi (x:y:[]))
                           _   -> case x of
                                       'l' -> fmap low (notmi (y:z:[]))
                                       'h' -> fmap hight (notmi (y:z:[]))

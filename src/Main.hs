@@ -5,30 +5,30 @@ import Data.Music
 import System.IO
 codec :: Track Ticks -> Midi
 codec n = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
-writem :: Midi -> IO ()
-writem m = exportFile "mymusic.mid" m
-push = writem . codec
-midiout :: Track Ticks -> [String] -> IO ()
-midiout xs ys = do push xs ;print xs; midadd xs ys
-showAddition :: (Show a1, Show a2) => a1 -> a2 -> IO ()
-showAddition x m = do print x; print m
-maybeAddition :: Track Ticks -> [String] -> String -> IO ()
-maybeAddition n m x = if (x=="q") then do return () else do add n m x
-add :: Track Ticks -> [String] -> String -> IO ()
-add n m x = do showAddition x m ; midiout n m
-addition::[(Int, Message)] -> [String] -> String -> IO ()
-addition xs ys x = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in maybeAddition n m x
-showCorrection :: Show a => a -> [[Char]] -> IO ()
-showCorrection cory ys = do print ("Erasing:"++(last ys)) ; print cory
-correction::[(Int, Message)] -> [String] -> IO ()
-correction xs ys = do let (cor,cory) = ((init . init) xs, init ys) in change cor cory ys
-change :: Track Ticks -> [String] -> [[Char]] -> IO ()
-change cor cory ys = do showCorrection cory ys ; midiout cor cory
-edition :: [(Int, Message)] -> [String] -> [Char] -> IO ()
-edition xs ys x = if (x/="x") then addition xs ys x else correction xs ys
-maybeMidadd :: [(Int, Message)] -> [String] -> [Char] -> IO ()
-maybeMidadd xs ys x = if (x/="") then edition xs ys x else midadd xs ys
-midadd :: [(Int, Message)] -> [String] -> IO ()
-midadd xs ys = do x<-getLine ; maybeMidadd xs ys x
+ravel :: Midi -> IO ()
+ravel m = exportFile "mymusic.mid" m
+charpentier = ravel . codec
+benevolo :: Track Ticks -> [String] -> IO ()
+benevolo xs ys = do charpentier xs ;print xs; bach xs ys
+preisner :: (Show a1, Show a2) => a1 -> a2 -> IO ()
+preisner x m = do print x; print m
+gluck :: Track Ticks -> [String] -> String -> IO ()
+gluck n m x = if (x=="q") then do return () else do rachmaninoff n m x
+rachmaninoff :: Track Ticks -> [String] -> String -> IO ()
+rachmaninoff n m x = do preisner x m ; benevolo n m
+arvopart::[(Int, Message)] -> [String] -> String -> IO ()
+arvopart xs ys x = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck n m x
+barber :: Show a => a -> [[Char]] -> IO ()
+barber cory ys = do print ("Erasing:"++(last ys)) ; print cory
+vivaldi::[(Int, Message)] -> [String] -> IO ()
+vivaldi xs ys = do let (cor,cory) = ((init . init) xs, init ys) in poulenc cor cory ys
+poulenc :: Track Ticks -> [String] -> [[Char]] -> IO ()
+poulenc cor cory ys = do barber cory ys ; benevolo cor cory
+debussy :: [(Int, Message)] -> [String] -> [Char] -> IO ()
+debussy xs ys x = if (x/="x") then arvopart xs ys x else vivaldi xs ys
+mozart :: [(Int, Message)] -> [String] -> [Char] -> IO ()
+mozart xs ys x = if (x/="") then debussy xs ys x else bach xs ys
+bach :: [(Int, Message)] -> [String] -> IO ()
+bach xs ys = do x<-getLine ; mozart xs ys x
 main :: IO ()
-main = midadd [(0,Text "Start"),(0,Text "Start")] ["start"]
+main = bach [(0,Text "Start"),(0,Text "Start")] ["start"]

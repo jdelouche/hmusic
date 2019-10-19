@@ -5,8 +5,8 @@ notmi "pause" = [(0,  NoteOn 0 60 0),(24, NoteOff 0 60 0)]
 notmi ('#':s) = [(0,Text s)]
 notmi "fin"   = [(0,TrackEnd)]
 notmi (a:l:o:[]) = case a of
-                        'l' -> fmap bem (notmi (l:o:[]))
-                        'h' -> fmap dies (notmi (l:o:[]))
+                        'l' -> fmap low (notmi (l:o:[]))
+                        'h' -> fmap hight (notmi (l:o:[]))
                         _   -> notmi (l:o:[])
 notmi (l:o:[]) = let m = case o of
                              '0' -> 48
@@ -26,7 +26,7 @@ notmi (l:o:[]) = let m = case o of
                                      _   -> [(0,  NoteOn 0 m      80),(48, NoteOff 0 m      0)]
 
 notmi s = [(0,Text s)]
-bem   (d,NoteOn x m v)  = (d,NoteOn x (m-1) v)
-bem   (d,NoteOff x m v) = (d,NoteOff x (m-1) v)
-dies  (d,NoteOn x m v)  = (d,NoteOn x (m+1) v)
-dies  (d,NoteOff x m v) = (d,NoteOff x (m+1) v)
+low   (d,NoteOn x m v)  = (d,NoteOn x (m-1) v)
+low   (d,NoteOff x m v) = (d,NoteOff x (m-1) v)
+hight  (d,NoteOn x m v)  = (d,NoteOn x (m+1) v)
+hight  (d,NoteOff x m v) = (d,NoteOff x (m+1) v)

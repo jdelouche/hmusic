@@ -3,6 +3,7 @@ import Prelude
 import Codec.Midi
 notmi "pause" = [(0,  NoteOn 0 60 0),(24, NoteOff 0 60 0)]
 notmi ('#':s) = [(0,Text s)]
+notmi "end"   = [(0,TrackEnd)]
 notmi "fin"   = [(0,TrackEnd)]
 notmi (a:l:o:[]) = case a of
                         'l' -> fmap low (notmi (l:o:[]))

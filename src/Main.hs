@@ -3,6 +3,7 @@ import Prelude
 import Codec.Midi
 import Data.Music
 import System.IO
+import Data.List.Split
 codec :: Track Ticks -> Midi
 codec n = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel :: Midi -> IO ()

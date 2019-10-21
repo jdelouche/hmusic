@@ -33,6 +33,11 @@ c2
 lb1
 a1
 g1
-f1-
+f1
+g1
+f1
+d1
+c1
+d1-
 end
 q

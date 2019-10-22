@@ -5,31 +5,37 @@ import Data.Music
 import System.IO
 import Data.List.Split
 codec :: Track Ticks -> Midi
-codec n = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
+codec n               = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel :: Midi -> IO ()
-ravel m = exportFile "mymusic.mid" m
-charpentier = ravel . codec
-benevolo :: Track Ticks -> [String] -> IO ()
-benevolo xs ys = do charpentier xs ;print xs; bach xs ys
-preisner :: (Show a1, Show a2) => a1 -> a2 -> IO ()
-preisner x m = do print x; print m
-gluck :: Track Ticks -> [String] -> String -> IO ()
-gluck n m x = if (x=="q") then do return () else do rachmaninoff n m x
-rachmaninoff :: Track Ticks -> [String] -> String -> IO ()
-rachmaninoff n m x = do preisner x m ; benevolo n m
-arvopart::[(Int, Message)] -> [String] -> String -> IO ()
-arvopart xs ys x = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck n m x
-barber :: Show a => a -> [[Char]] -> IO ()
-barber cory ys = do print ("Erasing:"++(last ys)) ; print cory
-vivaldi::[(Int, Message)] -> [String] -> IO ()
-vivaldi xs ys = do let (cor,cory) = ((init . init) xs, init ys) in poulenc cor cory ys
-poulenc :: Track Ticks -> [String] -> [[Char]] -> IO ()
-poulenc cor cory ys = do barber cory ys ; benevolo cor cory
-debussy :: [(Int, Message)] -> [String] -> [Char] -> IO ()
-debussy xs ys x = if (x/="x") then arvopart xs ys x else vivaldi xs ys
-mozart :: [(Int, Message)] -> [String] -> [Char] -> IO ()
-mozart xs ys x = if (x/="") then debussy xs ys x else bach xs ys
-bach :: [(Int, Message)] -> [String] -> IO ()
-bach xs ys = do x<-getLine ; mozart xs ys x 
+ravel m               = exportFile "mymusic.mid" m
+charpentier           = ravel . codec
+benevolo :: [String] -> Track Ticks -> [String] -> IO ()
+benevolo l xs ys      = do charpentier xs ;print xs;print l; bach l xs ys
+preisner :: (Show a1, Show a2) => [String] -> a1 -> a2 -> IO ()
+preisner l x m        = do print x; print m
+gluck :: [String] -> Track Ticks -> [String] -> String -> IO ()
+gluck l n m x         = if (x=="q") then do return () else do rachmaninoff l n m x
+rachmaninoff :: [String] ->Track Ticks -> [String] -> String -> IO ()
+rachmaninoff l n m x  = do preisner l x m ; benevolo l n m
+arvopart::[String] -> [(Int, Message)] -> [String] -> String -> IO ()
+arvopart l xs ys x    = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck l n m x
+barber :: Show a => [String] ->a -> [[Char]] -> IO ()
+barber l cory ys      = do print ("Erasing:"++(last ys)) ; print cory
+vivaldi::[String] -> [(Int, Message)] -> [String] -> IO ()
+vivaldi l xs ys       = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys
+poulenc ::[String] -> Track Ticks -> [String] -> [[Char]] -> IO ()
+poulenc l cor cory ys = do barber l cory ys ; benevolo l cor cory
+debussy ::[String] -> [(Int, Message)] -> [String] -> [Char] -> IO ()
+debussy l xs ys x     = if (x/="x") then arvopart l xs ys x else vivaldi l xs ys
+mozart ::[String] -> [(Int, Message)] -> [String] -> [Char] -> IO ()
+mozart l xs ys x      = if (x/="") then debussy l xs ys x else bach l xs ys
+bach ::[String] -> [(Int, Message)] -> [String] -> IO ()
+bach l xs ys          = if (length l == 0 ) then 
+                           do x<-getLine
+                              let l=splitOn "," x
+                              if (length l /= 0) then
+                                 let (z:zs)=l in mozart zs xs ys z
+                                 else mozart [] xs ys x
+                        else let (z:zs) = l in mozart zs xs ys z
 main :: IO ()
-main = bach [(0,Text "Start"),(0,Text "Start")] ["start"]
+main                = bach [] [(0,Text "Start"),(0,Text "Start")] ["start"]

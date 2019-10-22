@@ -25,14 +25,14 @@ notmi (l:o:[]) = let m = case o of
                              '4' -> 96
                              _   -> 60
                              in case l of
-                                     'c' -> [(0,  NoteOn 0 m      80),(48, NoteOff 0 m      0)]
-                                     'd' -> [(0,  NoteOn 0 (m+2)  80),(48, NoteOff 0 (m+2)  0)]
-                                     'e' -> [(0,  NoteOn 0 (m+4)  80),(48, NoteOff 0 (m+4)  0)]
-                                     'f' -> [(0,  NoteOn 0 (m+5)  80),(48, NoteOff 0 (m+5)  0)]
-                                     'g' -> [(0,  NoteOn 0 (m+7)  80),(48, NoteOff 0 (m+7)  0)]
-                                     'a' -> [(0,  NoteOn 0 (m+9)  80),(48, NoteOff 0 (m+9)  0)]
-                                     'b' -> [(0,  NoteOn 0 (m+11) 80),(48, NoteOff 0 (m+11) 0)]
-                                     _   -> [(0,  NoteOn 0 m      80),(48, NoteOff 0 m      0)]
+                                     'c' -> [(0,  NoteOn 0 m      80),(24, NoteOff 0 m      0)]
+                                     'd' -> [(0,  NoteOn 0 (m+2)  80),(24, NoteOff 0 (m+2)  0)]
+                                     'e' -> [(0,  NoteOn 0 (m+4)  80),(24, NoteOff 0 (m+4)  0)]
+                                     'f' -> [(0,  NoteOn 0 (m+5)  80),(24, NoteOff 0 (m+5)  0)]
+                                     'g' -> [(0,  NoteOn 0 (m+7)  80),(24, NoteOff 0 (m+7)  0)]
+                                     'a' -> [(0,  NoteOn 0 (m+9)  80),(24, NoteOff 0 (m+9)  0)]
+                                     'b' -> [(0,  NoteOn 0 (m+11) 80),(24, NoteOff 0 (m+11) 0)]
+                                     _   -> [(0,  NoteOn 0 m      80),(24, NoteOff 0 m      0)]
 
 notmi s = [(0,Text s)]
 low::(a, Message) -> (a, Message)

@@ -29,7 +29,8 @@ library
 
 executable hmusic
   main-is:             Main.hs
-  other-modules:       Data.Music
+  other-modules:       Data.Music,
+                       Bach
   -- other-extensions:
   build-depends:       base ^>=4.12.0.0,
                        HCodecs,

@@ -32,12 +32,12 @@ mozart l xs ys x      = if (x/="") then debussy l xs ys x else bach l xs ys
 bach ::[String] -> [(Int, Message)] -> [String] -> IO ()
 bach l xs ys          = if (length l == 0 ) then wagner l xs ys else let (z:zs) = l in mozart zs xs ys z
 wagner :: p -> [(Int, Message)] -> [String] -> IO ()
-wagner l xs ys = do x<-getLine; beethoven l xs ys x
+wagner l xs ys        = do x<-getLine; beethoven l xs ys x
 beethoven :: p -> [(Int, Message)] -> [String] -> [Char] -> IO ()
-beethoven l xs ys x = do let l=splitOn "," x
-                         if (length l /= 0) then sibellius l xs ys
-                                            else mozart [] xs ys x
+beethoven l xs ys x   = do let l=splitOn "," x in lully l xs ys x
+lully :: [String] -> [(Int, Message)] -> [String] -> [Char] -> IO ()
+lully l xs ys x       = if (length l /= 0) then sibellius l xs ys else mozart [] xs ys x
 sibellius :: [String] -> [(Int, Message)] -> [String] -> IO ()
-sibellius l xs ys = let (z:zs)=l in mozart zs xs ys z
+sibellius l xs ys     = let (z:zs)=l in mozart zs xs ys z
 main :: IO ()
-main                = bach [] [(0,Text "Start"),(0,Text "Start")] ["start"]
+main                  = bach [] [(0,Text "Start"),(0,Text "Start")] ["start"]

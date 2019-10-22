@@ -31,11 +31,12 @@ mozart ::[String] -> [(Int, Message)] -> [String] -> [Char] -> IO ()
 mozart l xs ys x      = if (x/="") then debussy l xs ys x else bach l xs ys
 bach ::[String] -> [(Int, Message)] -> [String] -> IO ()
 bach l xs ys          = if (length l == 0 ) then 
-                           do x<-getLine
-                              let l=splitOn "," x
-                              if (length l /= 0) then
-                                 let (z:zs)=l in mozart zs xs ys z
-                                 else mozart [] xs ys x
+                           wagner l xs ys
                         else let (z:zs) = l in mozart zs xs ys z
+wagner l xs ys = do x<-getLine
+                    let l=splitOn "," x
+                    if (length l /= 0) then
+                        let (z:zs)=l in mozart zs xs ys z
+                        else mozart [] xs ys x
 main :: IO ()
 main                = bach [] [(0,Text "Start"),(0,Text "Start")] ["start"]

@@ -30,6 +30,6 @@ debussy xs ys x = if (x/="x") then arvopart xs ys x else vivaldi xs ys
 mozart :: [(Int, Message)] -> [String] -> [Char] -> IO ()
 mozart xs ys x = if (x/="") then debussy xs ys x else bach xs ys
 bach :: [(Int, Message)] -> [String] -> IO ()
-bach xs ys = do x<-getLine ; mozart xs ys x
+bach xs ys = do x<-getLine ; mozart xs ys x 
 main :: IO ()
 main = bach [(0,Text "Start"),(0,Text "Start")] ["start"]

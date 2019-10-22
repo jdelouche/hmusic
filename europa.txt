@@ -6,5 +6,7 @@ lb1-,c2,d2,e2,d2,c2,g1,a1_
 a1-,lb1,c2,d2,c2,lb1,a1,g1_
 #m4
 g1-,a1,lb1,c2,lb1,a1,g1,f1_
+#m5
+g1,f1,d1,c1,d1_
 end
 q

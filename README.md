@@ -21,4 +21,4 @@ lc1
 hc1
 
 
-https://musescore.org/fr
+Import du fichier .mid avec https://musescore.org/fr

@@ -22,3 +22,8 @@ hc1
 
 
 Import du fichier .mid avec https://musescore.org/fr
+
+
+alias test='testchrom && testeuropa'
+alias testchrom='cabal build && cat chrom.txt | dist/build/hmusic/hmusic && diff mymusic.mid chromref.mid'
+alias testeuropa='cabal build && cat europa.txt | dist/build/hmusic/hmusic && diff mymusic.mid ref.mid;'

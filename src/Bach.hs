@@ -29,8 +29,8 @@ lully        ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO ()
 codec n               = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel m               = exportFile "mymusic.mid" m
 charpentier           = ravel . codec
-benevolo l xs ys      = do charpentier xs ;print xs;print l; bach l xs ys
-preisner l x m        = do print x; print m
+benevolo l xs ys      = do charpentier xs ; bach l xs ys
+preisner l x m        = do print m
 gluck l n m x         = if (x=="q") then do return () else do rachmaninoff l n m x
 rachmaninoff l n m x  = do preisner l n m ; benevolo l n m
 arvopart l xs ys x    = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck l n m x

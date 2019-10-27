@@ -4,23 +4,24 @@ import Codec.Midi
 import Data.Music
 import System.IO
 import Data.List.Split
+type SplitCmds = [String]
 codec        ::                                Track Ticks -> Midi
 ravel        ::                                               Midi -> IO ()
 benevolo     ::                [String] -> Track Ticks -> [String] -> IO ()
 preisner     ::                [String] -> Track Ticks -> [String] -> IO ()
-barber       ::                      Notes -> [String] -> [String] -> IO ()
-bach         ::              Notes -> [(Int, Message)] -> [String] -> IO ()
-wagner       ::              Notes -> [(Int, Message)] -> [String] -> IO ()
-sibellius    ::              Notes -> [(Int, Message)] -> [String] -> IO ()
-vivaldi      ::              Notes -> [(Int, Message)] -> [String] -> IO ()
-rachmaninoff ::          Notes ->Track Ticks -> [String] -> String -> IO ()
-gluck        ::         Notes -> Track Ticks -> [String] -> String -> IO ()
-poulenc      ::       Notes -> Track Ticks -> [String] -> [String] -> IO ()
-mozart       ::    Notes -> [(Int, Message)] -> [String] -> String -> IO ()
-debussy      ::    Notes -> [(Int, Message)] -> [String] -> String -> IO ()
-arvopart     ::    Notes -> [(Int, Message)] -> [String] -> String -> IO ()
-beethoven    ::    Notes -> [(Int, Message)] -> [String] -> String -> IO ()
-lully        ::    Notes -> [(Int, Message)] -> [String] -> String -> IO ()
+barber       ::                      SplitCmds -> [String] -> [String] -> IO ()
+bach         ::                   SplitCmds -> Track Ticks -> [String] -> IO () 
+wagner       ::                   SplitCmds -> Track Ticks -> [String] -> IO () 
+sibellius    ::                   SplitCmds -> Track Ticks -> [String] -> IO () 
+vivaldi      ::                   SplitCmds -> Track Ticks -> [String] -> IO ()
+rachmaninoff ::          SplitCmds ->Track Ticks -> [String] -> String -> IO ()
+gluck        ::         SplitCmds -> Track Ticks -> [String] -> String -> IO ()
+poulenc      ::       SplitCmds -> Track Ticks -> [String] -> [String] -> IO ()
+mozart       ::         SplitCmds -> Track Ticks -> [String] -> String -> IO ()
+debussy      ::         SplitCmds -> Track Ticks -> [String] -> String -> IO () 
+arvopart     ::         SplitCmds -> Track Ticks -> [String] -> String -> IO () 
+beethoven    ::         SplitCmds -> Track Ticks -> [String] -> String -> IO () 
+lully        ::         SplitCmds -> Track Ticks -> [String] -> String -> IO () 
 codec n               = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel m               = exportFile "mymusic.mid" m
 charpentier           = ravel . codec
@@ -36,7 +37,6 @@ debussy l xs ys x     = if (x/="x") then arvopart l xs ys x else vivaldi l xs ys
 mozart l xs ys x      = if (x/="") then debussy l xs ys x else bach l xs ys
 lully l xs ys x       = if (length l /= -1) then sibellius l xs ys else mozart [] xs ys x
 sibellius l xs ys     = let (z:zs)=l in mozart zs xs ys z
-type Notes = [String]
 beethoven l xs ys x   = do let l=splitOn "," x in lully l xs ys x
 wagner l xs ys        = do x<-getLine; beethoven l xs ys x
 bach l xs ys          = if (length l == 0 ) then wagner l xs ys else let (z:zs) = l in mozart zs xs ys z

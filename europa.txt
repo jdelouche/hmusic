@@ -8,5 +8,10 @@ a1-,lb1,c2,d2,c2,lb1,a1,g1_
 g1-,a1,lb1,c2,lb1,a1,g1,f1_
 #m5
 g1,f1,d1,c1,d1_
+#m6
+g2,d3-,d3-,c3,lb2,c3_
+d3,c3,lb2,c3,d3,c3,lb2,g2_
+g2,a2,lb2,c3,lb2,a2,g2,f2
+f2,e2,c2,lb1,c2
 end
 q

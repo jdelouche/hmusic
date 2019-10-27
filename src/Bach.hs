@@ -23,7 +23,7 @@ mozart       ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO ()
 debussy      ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
 arvopart     ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
 beethoven    ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
-lully        ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
+lully        ::         SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
 codec n               = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel m               = exportFile "mymusic.mid" m
 charpentier           = ravel . codec
@@ -36,7 +36,7 @@ barber l cory ys      = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi l xs ys       = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys
 poulenc l cor cory ys = do barber l cory ys ; benevolo l cor cory
 sibellius l xs ys     = let (z:zs)=l in mozart zs xs ys z
-lully     l xs ys x   = if (length l /= 1) then sibellius l xs ys else mozart [] xs ys x
+lully     l xs ys x   = if (length l /= 0) then sibellius l xs ys else mozart [] xs ys x
 beethoven l xs ys x   = do let l=splitOn "," x in lully l xs ys x
 debussy   l xs ys x   = if (x/="x") then arvopart l xs ys x else vivaldi l xs ys
 mozart    l xs ys x   = if (x/="") then debussy l xs ys x else bach l xs ys

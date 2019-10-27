@@ -9,10 +9,13 @@ g1-,a1,lb1,c2,lb1,a1,g1,f1_
 #m5
 g1,f1,d1,c1,d1_
 #m6
-g2,d3-,d3-,c3,lb2,c3_
+g2-,lb2-,d3,d3-,c3,lb2,c3_
 #m7
 d3,c3,lb2,c3,d3,c3,lb2,g2_
 #m8
-g2,a2,lb2,c3,lb2,a2,g2,f2_
+g2,a2,lb2,c3,lb2,a2,g2,a2,g2,a2_
 #m9
-g2,f2,d2,c2,d2_,end,q
+a2-,c3,lb2,lb2,a2,a2,g2,g2-
+#m10
+g2,f2,d2,c2,d2_
+end,q

@@ -7,8 +7,8 @@ import Data.List.Split
 type SplitCmds = [String]
 type Notes = [String]
 type Line = String
-codec        ::                                  Track Ticks -> Midi
 ravel        ::                                                 Midi -> IO ()
+codec        ::                                  Track Ticks -> Midi
 benevolo     ::                  [String] -> Track Ticks -> [String] -> IO ()
 preisner     ::                  [String] -> Track Ticks -> [String] -> IO ()
 barber       ::                    SplitCmds -> [String] -> [String] -> IO ()
@@ -16,14 +16,14 @@ bach         ::                    SplitCmds -> Track Ticks -> Notes -> IO ()
 wagner       ::                 SplitCmds -> Track Ticks -> [String] -> IO () 
 sibellius    ::                 SplitCmds -> Track Ticks -> [String] -> IO () 
 vivaldi      ::                 SplitCmds -> Track Ticks -> [String] -> IO ()
-rachmaninoff ::          SplitCmds ->Track Ticks -> [String] -> Line -> IO ()
+rachmaninoff ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO ()
 gluck        ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO ()
 poulenc      ::     SplitCmds -> Track Ticks -> [String] -> [String] -> IO ()
-mozart       ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO ()
-debussy      ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
-arvopart     ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
-beethoven    ::         SplitCmds -> Track Ticks -> [String] -> Line -> IO () 
-lully        ::         SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
+mozart       ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO ()
+debussy      ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
+arvopart     ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
+beethoven    ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
+lully        ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
 codec n               = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel m               = exportFile "mymusic.mid" m
 charpentier           = ravel . codec

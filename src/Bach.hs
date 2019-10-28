@@ -10,7 +10,7 @@ type Line      = String
 type Note      = String
 type Token     = String
 data Data      = Line | Note
-data Ps    = Ps { tkokens :: Tokens, tracks :: Track Ticks, notes :: Notes } deriving (Eq,Show)
+data Ps    = Ps { tokens :: Tokens, tracks :: Track Ticks, notes :: Notes } deriving (Eq,Show)
 ravel        ::                                                 Midi -> IO ()
 codec        ::                                 Track Ticks  -> Midi
 preisner     ::                    Tokens -> Track Ticks -> Notes -> IO ()
@@ -24,8 +24,8 @@ beethoven    ::            Tokens -> Track Ticks -> Notes -> Line -> IO ()
 arvopart     ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
 vivaldi      ::                    Tokens -> Track Ticks -> Notes -> IO ()
 debussy      ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
-mozart       ::            Tokens -> Track Ticks -> Notes -> Line -> IO ()
-wagner       ::                    Tokens -> Track Ticks -> Notes -> IO () 
+mozart       ::            Ps -> Line -> IO ()
+wagner       ::                    Ps -> IO () 
 bach         ::                                            Ps -> IO () 
 codec n              = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,Codec.Midi.tracks   = [n] } 
 ravel m              = exportFile "mymusic.mid" m
@@ -37,10 +37,10 @@ arvopart l xs ys x   = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck l n m
 barber l cory ys     = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi l xs ys      = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys
 poulenc l cor cory ys= do barber l cory ys ; benevolo l cor cory
-sibellius l xs ys    = let (z:zs)=l in mozart zs xs ys z
-lully     l xs ys x  = if (length l == 0) then mozart [] xs ys x else sibellius l xs ys
+sibellius l xs ys    = let (z:zs)=l in mozart (Ps zs xs ys) z
+lully     l xs ys x  = if (length l == 0) then mozart (Ps [] xs ys) x else sibellius l xs ys
 beethoven l xs ys x  = do let l=splitOn "," x in lully l xs ys x
 debussy   l xs ys x  = if (x/="x") then arvopart l xs ys x else vivaldi l xs ys
-mozart    l xs ys x  = if (x/="") then debussy l xs ys x else bach (Ps l xs ys)
-wagner    l xs ys    = do x<-getLine; beethoven l xs ys x
-bach (Ps tko trs ns) = if (length tko == 0 ) then wagner tko trs ns else let (t:ts) = tko in mozart ts trs ns t
+mozart (Ps l xs ys) x= if (x/="") then debussy l xs ys x else bach (Ps l xs ys)
+wagner (Ps l xs ys)  = do x<-getLine; beethoven l xs ys x
+bach (Ps tko tr ns) = if (length tko == 0 ) then wagner (Ps tko tr ns) else let (t:ts) = tko in mozart (Ps ts tr ns) t

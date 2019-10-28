@@ -43,4 +43,4 @@ beethoven l xs ys x  = do let l=splitOn "," x in lully l xs ys x
 debussy   l xs ys x  = if (x/="x") then arvopart l xs ys x else vivaldi l xs ys
 mozart (Ps l xs ys) x= if (x/="") then debussy l xs ys x else bach (Ps l xs ys)
 wagner (Ps l xs ys)  = do x<-getLine; beethoven l xs ys x
-bach (Ps tko tr ns) = if (length tko == 0 ) then wagner (Ps tko tr ns) else let (t:ts) = tko in mozart (Ps ts tr ns) t
+bach p@(Ps tko tr ns)  = if (length tko == 0 ) then wagner p else let (t:ts) = tko in mozart (Ps ts tr ns) t

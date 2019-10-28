@@ -4,35 +4,36 @@ import Codec.Midi
 import Data.Music
 import System.IO
 import Data.List.Split
-type SplitCmds = [String]
-type Notes     = [String]
+type Tokens    = [Token]
+type Notes     = [Note]
 type Line      = String
 type Note      = String
+type Token     = String
 data Data      = Line | Note
 ravel        ::                                                 Midi -> IO ()
 codec        ::                                 Track Ticks  -> Midi
-benevolo     ::                    SplitCmds -> Track Ticks -> Notes -> IO ()
-preisner     ::                    SplitCmds -> Track Ticks -> Notes -> IO ()
-barber       ::                          SplitCmds -> Notes -> Notes -> IO ()
-poulenc      ::           SplitCmds -> Track Ticks -> Notes -> Notes -> IO ()
-bach         ::                    SplitCmds -> Track Ticks -> Notes -> IO () 
-wagner       ::                    SplitCmds -> Track Ticks -> Notes -> IO () 
-sibellius    ::                    SplitCmds -> Track Ticks -> Notes -> IO () 
-vivaldi      ::                    SplitCmds -> Track Ticks -> Notes -> IO ()
-rachmaninoff ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO ()
-gluck        ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO ()
-mozart       ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO ()
-debussy      ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
-arvopart     ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
-beethoven    ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
-lully        ::            SplitCmds -> Track Ticks -> Notes -> Line -> IO () 
+preisner     ::                    Tokens -> Track Ticks -> Notes -> IO ()
+rachmaninoff ::            Tokens -> Track Ticks -> Notes -> Line -> IO ()
+gluck        ::            Tokens -> Track Ticks -> Notes -> Line -> IO ()
+benevolo     ::                    Tokens -> Track Ticks -> Notes -> IO ()
+barber       ::                          Tokens -> Notes -> Notes -> IO ()
+poulenc      ::           Tokens -> Track Ticks -> Notes -> Notes -> IO ()
+sibellius    ::                    Tokens -> Track Ticks -> Notes -> IO () 
+lully        ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
+beethoven    ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
+arvopart     ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
+vivaldi      ::                    Tokens -> Track Ticks -> Notes -> IO ()
+debussy      ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
+mozart       ::            Tokens -> Track Ticks -> Notes -> Line -> IO ()
+wagner       ::                    Tokens -> Track Ticks -> Notes -> IO () 
+bach         ::                    Tokens -> Track Ticks -> Notes -> IO () 
 codec n               = Midi { fileType = MultiTrack,timeDiv  = TicksPerBeat 24,tracks   = [n] } 
 ravel m               = exportFile "mymusic.mid" m
 charpentier           = ravel . codec
 benevolo l xs ys      = do charpentier xs ; bach l xs ys
-preisner l x m        = do print m
-gluck l n m x         = if (x=="q") then do return () else do rachmaninoff l n m x
-rachmaninoff l n m x  = do preisner l n m ; benevolo l n m
+preisner l x m        = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
+gluck l n m x         = if (x=="q") then do preisner l n m else do rachmaninoff l n m x
+rachmaninoff l n m x  = benevolo l n m
 arvopart l xs ys x    = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck l n m x
 barber l cory ys      = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi l xs ys       = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys

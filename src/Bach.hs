@@ -39,7 +39,7 @@ barber l cory ys             = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi (Ps l xs ys)         = do let (cor,cory) = ((init . init) xs, init ys) in poulenc (Ps l cor cory) ys
 poulenc p@(Ps l cor cory) ys = do barber l cory ys ; benevolo p
 sibellius p@(Ps l  xs ys)    = let (z:zs)=l in mozart (Ps zs xs ys) z
-lully     p@(Ps [] xs ys) x  = mozart (Ps [] xs ys) x
+lully     p@(Ps [] xs ys) x  = mozart p x
 lully     p@(Ps l xs ys) x   = sibellius p
 beethoven p@(Ps l xs ys) x   = do let l'=splitOn "," x in lully (Ps l' xs ys) x
 debussy   p "x"              = vivaldi p

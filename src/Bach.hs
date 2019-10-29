@@ -18,8 +18,8 @@ gluck        ::            Tokens -> Track Ticks -> Notes -> Line -> IO ()
 benevolo     ::                                                Ps -> IO ()
 barber       ::                          Tokens -> Notes -> Notes -> IO ()
 poulenc      ::           Tokens -> Track Ticks -> Notes -> Notes -> IO ()
-sibellius    ::                    Tokens -> Track Ticks -> Notes -> IO () 
-lully        ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
+sibellius    ::                                                Ps -> IO () 
+lully        ::                                        Ps -> Line -> IO () 
 beethoven    ::                                        Ps -> Line -> IO () 
 arvopart     ::                                        Ps -> Line -> IO () 
 vivaldi      ::                                               Ps  -> IO ()
@@ -37,13 +37,14 @@ arvopart (Ps l xs ys) x   = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck 
 barber l cory ys     = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi (Ps l xs ys)      = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys
 poulenc l cor cory ys= do barber l cory ys ; benevolo (Ps l cor cory)
-sibellius l xs ys    = let (z:zs)=l in mozart (Ps zs xs ys) z
-lully     l xs ys x  = if (length l == 0) then mozart (Ps [] xs ys) x else sibellius l xs ys
-beethoven p@(Ps l xs ys) x      = do let l'=splitOn "," x in lully l' xs ys x
-debussy   p "x"          = vivaldi p
-debussy   p x            = arvopart p x
-mozart p@(Ps l xs ys) "" = bach p
-mozart p@(Ps l xs ys) x  = debussy p x
+sibellius p@(Ps l  xs ys)    = let (z:zs)=l in mozart (Ps zs xs ys) z
+lully     p@(Ps [] xs ys) x = mozart (Ps [] xs ys) x
+lully     p@(Ps l xs ys) x  = sibellius p
+beethoven p@(Ps l xs ys) x = do let l'=splitOn "," x in lully (Ps l' xs ys) x
+debussy   p "x"            = vivaldi p
+debussy   p x              = arvopart p x
+mozart p@(Ps l xs ys) ""   = bach p
+mozart p@(Ps l xs ys) x    = debussy p x
 wagner p@(Ps tko tr ns)    = do x<-getLine; beethoven p x
-bach p@(Ps []  tr ns)    = wagner p
-bach p@(Ps tko tr ns)    = let (t:ts) = tko in mozart (Ps ts tr ns) t
+bach p@(Ps []  tr ns)      = wagner p
+bach p@(Ps tko tr ns)      = let (t:ts) = tko in mozart (Ps ts tr ns) t

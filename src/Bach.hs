@@ -35,8 +35,8 @@ preisner (Ps _ x (z:zs))       = print $ z++","++(foldr(\a x -> x++a++",") "" (r
 gluck p "q"                    = preisner p 
 gluck p  x                     = benevolo p 
 arvopart (Ps tko tr ns) x      = let (n,m) = ((tr++(notmi x)),(ns++[x])) in gluck (Ps tko n m) x
-barber tko cory ns             = do print ("Erasing:"++(last ns)) ; print cory
-vivaldi (Ps l tr ns)           = let (cor,corn) = ((init . init) tr, init ns) in poulenc (Ps l cor corn) ns
+barber tko xtr ns              = do print ("Erasing:"++(last ns)) ; print xtr
+vivaldi (Ps l tr ns)           = let (xtr,xn) = ((init . init) tr, init ns) in poulenc (Ps l xtr xn) ns
 poulenc p@(Ps tko _ corn) ns   = do barber tko corn ns ; benevolo p
 sibellius p@(Ps (t:ts)  tr ns) = mozart (Ps ts tr ns) t
 lully     p@(Ps [] tr ns) x    = mozart p x

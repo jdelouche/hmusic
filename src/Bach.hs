@@ -37,7 +37,7 @@ gluck p  x                   = benevolo p
 arvopart (Ps tko tr ns) x    = do let (n,m) = ((tr++(notmi x)),(ns++[x])) in gluck (Ps tko n m) x
 barber tko cory ns           = do print ("Erasing:"++(last ns)) ; print cory
 vivaldi (Ps l tr ns)         = do let (cor,cory) = ((init . init) tr, init ns) in poulenc (Ps l cor cory) ns
-poulenc p@(Ps tko cor cory) ns = do barber tko cory ns ; benevolo p
+poulenc p@(Ps tko _ corn) ns = do barber tko corn ns ; benevolo p
 sibellius p@(Ps tko  tr ns)  = let (t:ts)=tko in mozart (Ps ts tr ns) t
 lully     p@(Ps [] tr ns) x  = mozart p x
 lully     p x                = sibellius p

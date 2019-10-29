@@ -11,8 +11,8 @@ type Note      = String
 type Token     = String
 data Data      = Line | Note
 data Ps    = Ps { tokens :: Tokens, tracks :: Track Ticks, notes :: Notes } deriving (Eq,Show)
-ravel        ::                                                 Midi -> IO ()
-codec        ::                                 Track Ticks  -> Midi
+ravel        ::                                              Midi -> IO ()
+codec        ::                              Track Ticks  -> Midi
 preisner     ::                                                Ps -> IO ()
 gluck        ::                                        Ps -> Line -> IO ()
 benevolo     ::                                                Ps -> IO ()
@@ -22,7 +22,7 @@ sibellius    ::                                                Ps -> IO ()
 lully        ::                                        Ps -> Line -> IO () 
 beethoven    ::                                        Ps -> Line -> IO () 
 arvopart     ::                                        Ps -> Line -> IO () 
-vivaldi      ::                                               Ps  -> IO ()
+vivaldi      ::                                                Ps -> IO ()
 debussy      ::                                        Ps -> Line -> IO () 
 mozart       ::                                        Ps -> Line -> IO ()
 wagner       ::                                                Ps -> IO () 

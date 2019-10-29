@@ -40,8 +40,9 @@ poulenc l cor cory ys= do barber l cory ys ; benevolo (Ps l cor cory)
 sibellius l xs ys    = let (z:zs)=l in mozart (Ps zs xs ys) z
 lully     l xs ys x  = if (length l == 0) then mozart (Ps [] xs ys) x else sibellius l xs ys
 beethoven l xs ys x  = do let l=splitOn "," x in lully l xs ys x
-debussy   p x  = if (x/="x") then arvopart p x else vivaldi p
-mozart p@(Ps l xs ys) x= if (x/="") then debussy p x else bach p
-wagner (Ps tko tr ns)  = do x<-getLine; beethoven tko tr ns x
-bach p@(Ps []  tr ns)  = wagner p
-bach p@(Ps tko tr ns)  = let (t:ts) = tko in mozart (Ps ts tr ns) t
+debussy   p x            = if (x/="x") then arvopart p x else vivaldi p
+mozart p@(Ps l xs ys) "" = bach p
+mozart p@(Ps l xs ys) x  = debussy p x
+wagner (Ps tko tr ns)    = do x<-getLine; beethoven tko tr ns x
+bach p@(Ps []  tr ns)    = wagner p
+bach p@(Ps tko tr ns)    = let (t:ts) = tko in mozart (Ps ts tr ns) t

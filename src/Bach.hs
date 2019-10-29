@@ -41,7 +41,7 @@ poulenc p@(Ps tko _ corn) ns   = do barber tko corn ns ; benevolo p
 sibellius p@(Ps (t:ts)  tr ns) = mozart (Ps ts tr ns) t
 lully     p@(Ps [] tr ns) x    = mozart p x
 lully     p x                  = sibellius p
-beethoven p@(Ps tko tr ns) x   = let l'=splitOn "," x in lully (Ps l' tr ns) x
+beethoven p@(Ps tko tr ns) x   = let tko'=splitOn "," x in lully (Ps tko' tr ns) x
 debussy   p "x"                = vivaldi p
 debussy   p x                  = arvopart p x
 mozart p@(Ps tko tr ns) ""     = bach p

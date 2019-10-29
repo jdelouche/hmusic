@@ -21,9 +21,9 @@ poulenc      ::           Tokens -> Track Ticks -> Notes -> Notes -> IO ()
 sibellius    ::                    Tokens -> Track Ticks -> Notes -> IO () 
 lully        ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
 beethoven    ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
-arvopart     ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
-vivaldi      ::                    Tokens -> Track Ticks -> Notes -> IO ()
-debussy      ::            Tokens -> Track Ticks -> Notes -> Line -> IO () 
+arvopart     ::                                        Ps -> Line -> IO () 
+vivaldi      ::                                               Ps  -> IO ()
+debussy      ::                                        Ps -> Line -> IO () 
 mozart       ::                                        Ps -> Line -> IO ()
 wagner       ::                                                Ps -> IO () 
 bach         ::                                                Ps -> IO () 
@@ -33,15 +33,15 @@ charpentier          = ravel . codec
 benevolo p@(Ps l xs ys) = do charpentier xs ; bach p
 preisner l x m       = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
 gluck l n m x        = if (x=="q") then preisner l n m else benevolo (Ps l n m)
-arvopart l xs ys x   = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck l n m x
+arvopart (Ps l xs ys) x   = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck l n m x
 barber l cory ys     = do print ("Erasing:"++(last ys)) ; print cory
-vivaldi l xs ys      = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys
+vivaldi (Ps l xs ys)      = do let (cor,cory) = ((init . init) xs, init ys) in poulenc l cor cory ys
 poulenc l cor cory ys= do barber l cory ys ; benevolo (Ps l cor cory)
 sibellius l xs ys    = let (z:zs)=l in mozart (Ps zs xs ys) z
 lully     l xs ys x  = if (length l == 0) then mozart (Ps [] xs ys) x else sibellius l xs ys
 beethoven l xs ys x  = do let l=splitOn "," x in lully l xs ys x
-debussy   l xs ys x  = if (x/="x") then arvopart l xs ys x else vivaldi l xs ys
-mozart p@(Ps l xs ys) x= if (x/="") then debussy l xs ys x else bach p
+debussy   p x  = if (x/="x") then arvopart p x else vivaldi p
+mozart p@(Ps l xs ys) x= if (x/="") then debussy p x else bach p
 wagner (Ps tko tr ns)  = do x<-getLine; beethoven tko tr ns x
 bach p@(Ps []  tr ns)  = wagner p
 bach p@(Ps tko tr ns)  = let (t:ts) = tko in mozart (Ps ts tr ns) t

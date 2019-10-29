@@ -32,8 +32,8 @@ ravel m                      = exportFile "mymusic.mid" m
 charpentier                  = ravel . codec
 benevolo p@(Ps l xs ys)      = do charpentier xs ; bach p
 preisner (Ps l x m)          = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
-gluck p@(Ps l n m) "q"       = preisner (Ps l n m) 
-gluck p@(Ps l n m) x         = benevolo p 
+gluck p "q"                  = preisner p 
+gluck p  x                   = benevolo p 
 arvopart (Ps l xs ys) x      = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck (Ps l n m) x
 barber l cory ys             = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi (Ps l xs ys)         = do let (cor,cory) = ((init . init) xs, init ys) in poulenc (Ps l cor cory) ys

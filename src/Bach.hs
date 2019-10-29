@@ -38,14 +38,14 @@ arvopart (Ps l xs ys) x      = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in glu
 barber l cory ys             = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi (Ps l xs ys)         = do let (cor,cory) = ((init . init) xs, init ys) in poulenc (Ps l cor cory) ys
 poulenc p@(Ps l cor cory) ys = do barber l cory ys ; benevolo p
-sibellius p@(Ps l  xs ys)    = let (z:zs)=l in mozart (Ps zs xs ys) z
+sibellius p@(Ps tko  xs ys)  = let (t:ts)=tko in mozart (Ps ts xs ys) t
 lully     p@(Ps [] xs ys) x  = mozart p x
 lully     p x                = sibellius p
-beethoven p@(Ps l xs ys) x   = do let l'=splitOn "," x in lully (Ps l' xs ys) x
+beethoven p@(Ps tko xs ys) x   = do let l'=splitOn "," x in lully (Ps l' xs ys) x
 debussy   p "x"              = vivaldi p
 debussy   p x                = arvopart p x
-mozart p@(Ps l xs ys) ""     = bach p
-mozart p@(Ps l xs ys) x      = debussy p x
+mozart p@(Ps tko xs ys) ""   = bach p
+mozart p@(Ps tko xs ys) x    = debussy p x
 wagner p@(Ps tko tr ns)      = do x<-getLine; beethoven p x
 bach p@(Ps []  tr ns)        = wagner p
 bach p@(Ps tko tr ns)        = let (t:ts) = tko in mozart (Ps ts tr ns) t

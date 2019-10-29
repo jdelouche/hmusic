@@ -31,11 +31,11 @@ codec n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.t
 ravel m                      = exportFile "mymusic.mid" m
 charpentier                  = ravel . codec
 benevolo p@(Ps l tr ys)      = do charpentier tr ; bach p
-preisner (Ps l x m)          = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
+preisner (Ps _ x m)          = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
 gluck p "q"                  = preisner p 
 gluck p  x                   = benevolo p 
-arvopart (Ps l tr ys) x      = do let (n,m) = ((tr++(notmi x)),(ys++[x])) in gluck (Ps l n m) x
-barber l cory ys             = do print ("Erasing:"++(last ys)) ; print cory
+arvopart (Ps tko tr ys) x    = do let (n,m) = ((tr++(notmi x)),(ys++[x])) in gluck (Ps tko n m) x
+barber tko cory ys           = do print ("Erasing:"++(last ys)) ; print cory
 vivaldi (Ps l tr ys)         = do let (cor,cory) = ((init . init) tr, init ys) in poulenc (Ps l cor cory) ys
 poulenc p@(Ps tko cor cory) ys = do barber tko cory ys ; benevolo p
 sibellius p@(Ps tko  tr ys)  = let (t:ts)=tko in mozart (Ps ts tr ys) t

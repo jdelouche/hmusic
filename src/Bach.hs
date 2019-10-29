@@ -30,22 +30,22 @@ bach         ::                                                Ps -> IO ()
 codec n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = [n] } 
 ravel m                      = exportFile "mymusic.mid" m
 charpentier                  = ravel . codec
-benevolo p@(Ps l xs ys)      = do charpentier xs ; bach p
+benevolo p@(Ps l tr ys)      = do charpentier tr ; bach p
 preisner (Ps l x m)          = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
 gluck p "q"                  = preisner p 
 gluck p  x                   = benevolo p 
-arvopart (Ps l xs ys) x      = do let (n,m) = ((xs++(notmi x)),(ys++[x])) in gluck (Ps l n m) x
+arvopart (Ps l tr ys) x      = do let (n,m) = ((tr++(notmi x)),(ys++[x])) in gluck (Ps l n m) x
 barber l cory ys             = do print ("Erasing:"++(last ys)) ; print cory
-vivaldi (Ps l xs ys)         = do let (cor,cory) = ((init . init) xs, init ys) in poulenc (Ps l cor cory) ys
-poulenc p@(Ps l cor cory) ys = do barber l cory ys ; benevolo p
-sibellius p@(Ps tko  xs ys)  = let (t:ts)=tko in mozart (Ps ts xs ys) t
-lully     p@(Ps [] xs ys) x  = mozart p x
+vivaldi (Ps l tr ys)         = do let (cor,cory) = ((init . init) tr, init ys) in poulenc (Ps l cor cory) ys
+poulenc p@(Ps tko cor cory) ys = do barber tko cory ys ; benevolo p
+sibellius p@(Ps tko  tr ys)  = let (t:ts)=tko in mozart (Ps ts tr ys) t
+lully     p@(Ps [] tr ys) x  = mozart p x
 lully     p x                = sibellius p
-beethoven p@(Ps tko xs ys) x   = do let l'=splitOn "," x in lully (Ps l' xs ys) x
+beethoven p@(Ps tko tr ys) x = do let l'=splitOn "," x in lully (Ps l' tr ys) x
 debussy   p "x"              = vivaldi p
 debussy   p x                = arvopart p x
-mozart p@(Ps tko xs ys) ""   = bach p
-mozart p@(Ps tko xs ys) x    = debussy p x
+mozart p@(Ps tko tr ys) ""   = bach p
+mozart p@(Ps tko tr ys) x    = debussy p x
 wagner p@(Ps tko tr ns)      = do x<-getLine; beethoven p x
 bach p@(Ps []  tr ns)        = wagner p
 bach p@(Ps tko tr ns)        = let (t:ts) = tko in mozart (Ps ts tr ns) t

@@ -38,7 +38,7 @@ arvopart (Ps tko tr ns) x    = let (n,m) = ((tr++(notmi x)),(ns++[x])) in gluck 
 barber tko cory ns           = do print ("Erasing:"++(last ns)) ; print cory
 vivaldi (Ps l tr ns)         = let (cor,corn) = ((init . init) tr, init ns) in poulenc (Ps l cor corn) ns
 poulenc p@(Ps tko _ corn) ns = do barber tko corn ns ; benevolo p
-sibellius p@(Ps tko  tr ns)  = let (t:ts)=tko in mozart (Ps ts tr ns) t
+sibellius p@(Ps (t:ts)  tr ns)  = mozart (Ps ts tr ns) t
 lully     p@(Ps [] tr ns) x  = mozart p x
 lully     p x                = sibellius p
 beethoven p@(Ps tko tr ns) x = let l'=splitOn "," x in lully (Ps l' tr ns) x
@@ -48,4 +48,4 @@ mozart p@(Ps tko tr ns) ""   = bach p
 mozart p@(Ps tko tr ns) x    = debussy p x
 wagner p@(Ps tko tr ns)      = do x<-getLine; beethoven p x
 bach p@(Ps []  tr ns)        = wagner p
-bach p@(Ps tko tr ns)        = let (t:ts) = tko in mozart (Ps ts tr ns) t
+bach p@(Ps (t:ts) tr ns)     = mozart (Ps ts tr ns) t

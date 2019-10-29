@@ -30,22 +30,22 @@ bach         ::                                                Ps -> IO ()
 codec n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = [n] } 
 ravel m                      = exportFile "mymusic.mid" m
 charpentier                  = ravel . codec
-benevolo p@(Ps l tr ys)      = do charpentier tr ; bach p
+benevolo p@(Ps _ tr ns)      = do charpentier tr ; bach p
 preisner (Ps _ x m)          = do let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
 gluck p "q"                  = preisner p 
 gluck p  x                   = benevolo p 
-arvopart (Ps tko tr ys) x    = do let (n,m) = ((tr++(notmi x)),(ys++[x])) in gluck (Ps tko n m) x
-barber tko cory ys           = do print ("Erasing:"++(last ys)) ; print cory
-vivaldi (Ps l tr ys)         = do let (cor,cory) = ((init . init) tr, init ys) in poulenc (Ps l cor cory) ys
-poulenc p@(Ps tko cor cory) ys = do barber tko cory ys ; benevolo p
-sibellius p@(Ps tko  tr ys)  = let (t:ts)=tko in mozart (Ps ts tr ys) t
-lully     p@(Ps [] tr ys) x  = mozart p x
+arvopart (Ps tko tr ns) x    = do let (n,m) = ((tr++(notmi x)),(ns++[x])) in gluck (Ps tko n m) x
+barber tko cory ns           = do print ("Erasing:"++(last ns)) ; print cory
+vivaldi (Ps l tr ns)         = do let (cor,cory) = ((init . init) tr, init ns) in poulenc (Ps l cor cory) ns
+poulenc p@(Ps tko cor cory) ns = do barber tko cory ns ; benevolo p
+sibellius p@(Ps tko  tr ns)  = let (t:ts)=tko in mozart (Ps ts tr ns) t
+lully     p@(Ps [] tr ns) x  = mozart p x
 lully     p x                = sibellius p
-beethoven p@(Ps tko tr ys) x = do let l'=splitOn "," x in lully (Ps l' tr ys) x
+beethoven p@(Ps tko tr ns) x = do let l'=splitOn "," x in lully (Ps l' tr ns) x
 debussy   p "x"              = vivaldi p
 debussy   p x                = arvopart p x
-mozart p@(Ps tko tr ys) ""   = bach p
-mozart p@(Ps tko tr ys) x    = debussy p x
+mozart p@(Ps tko tr ns) ""   = bach p
+mozart p@(Ps tko tr ns) x    = debussy p x
 wagner p@(Ps tko tr ns)      = do x<-getLine; beethoven p x
 bach p@(Ps []  tr ns)        = wagner p
 bach p@(Ps tko tr ns)        = let (t:ts) = tko in mozart (Ps ts tr ns) t

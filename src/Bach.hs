@@ -34,7 +34,7 @@ benevolo p@(Ps _ tr ns)      = do charpentier tr ; bach p
 preisner (Ps _ x m)          = let (z:zs) = m in print $ z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
 gluck p "q"                  = preisner p 
 gluck p  x                   = benevolo p 
-arvopart (Ps tko tr ns) x    = do let (n,m) = ((tr++(notmi x)),(ns++[x])) in gluck (Ps tko n m) x
+arvopart (Ps tko tr ns) x    = let (n,m) = ((tr++(notmi x)),(ns++[x])) in gluck (Ps tko n m) x
 barber tko cory ns           = do print ("Erasing:"++(last ns)) ; print cory
 vivaldi (Ps l tr ns)         = do let (cor,cory) = ((init . init) tr, init ns) in poulenc (Ps l cor cory) ns
 poulenc p@(Ps tko _ corn) ns = do barber tko corn ns ; benevolo p

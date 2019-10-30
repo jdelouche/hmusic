@@ -9,7 +9,6 @@ type Notes     = [Note]
 type Line      = String
 type Note      = String
 type Token     = String
-data Data      = Line | Note
 data Glob    = Glob { tokens :: Tokens, tracks :: Track Ticks, notes :: Notes } deriving (Eq,Show)
 ravel        ::                               Midi -> IO ()
 codec        ::               Track Ticks  -> Midi

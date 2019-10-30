@@ -30,7 +30,7 @@ codec n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.t
 ravel m                          = exportFile "mymusic.mid" m
 charpentier                      = ravel . codec
 benevolo  p@(Glob _ tr _)        = do charpentier tr ; bach p
-preisner    (Glob _ _ (z:zs))    = print $ britten z zs
+preisner    (Glob _ _ (z:zs))    = do print $ britten z zs; writeFile "mymusic.txt" $ britten z zs
 britten                z zs      = z++","++(foldr(\a x -> x++a++",") "" (reverse zs))
 gluck     p "q"                  = preisner p 
 gluck     p  x                   = benevolo p 

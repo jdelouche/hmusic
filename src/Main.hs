@@ -3,6 +3,7 @@ import Prelude
 import Codec.Midi
 import Data.List.Split
 import System.IO
+import Data.Music
 data GMain = Gmain { tkos::[[String]] }
 tup f1 f2 f3 = foldr (\t trs -> case t of
                             (a:[])     -> f1 a trs
@@ -16,6 +17,7 @@ looping (Gmain y) = do (allx@(x:xs)) <- getLine
                        case x of
                               'q' -> do let trs@(tr1,tr2,tr3) = (one y,two y,thr y)
                                         print trs
+                                        print (fmap (notmi 1) tr1)
                               _   -> looping (Gmain (y++[splitOn " " allx]))
 main :: IO ()
 main = looping (Gmain [])

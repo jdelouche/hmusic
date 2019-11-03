@@ -1,5 +1,11 @@
-c1 c2 c3
-e1 e2 e3
-g1 g2 g3
+c1 e1- g1_
+e1 #   #
+g1 g1- #
+a1 #   #
+#m1 # #
+a1 pause   pause
+g1 pause   pause
+e1 pause   pause
+c1 e1 g1
 end end end
 q

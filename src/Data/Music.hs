@@ -1,7 +1,8 @@
 module Data.Music where
 import Prelude
 import Codec.Midi
-notmi::Num a => Int -> String -> [(a, Message)]
+notmi::Int -> String -> [(Ticks,Message)]
+notmi c ('>':s) = [(0,Copyright s)]
 notmi c "pause" = [(0,  NoteOn c 60 0),(24, NoteOff c 60 0)]
 notmi c ('#':s) = [(0,Text s)]
 notmi c "end"   = [(0,TrackEnd)]
@@ -35,15 +36,15 @@ notmi c (l:o:[]) = let m = case o of
                                      _   -> [(0,  NoteOn c m      80),(24, NoteOff c m      0)]
 
 notmi c s = [(0,Text s)]
-low::(a, Message) -> (a, Message)
+low::(Ticks,Message) -> (Ticks,Message)
 low      (d,NoteOn  x m v) = (d,NoteOn    x (m-1) v)
 low      (d,NoteOff x m v) = (d,NoteOff   x (m-1) v)
 low      m                 = m
-hight::(a, Message) -> (a, Message)
+hight::(Ticks,Message) -> (Ticks,Message)
 hight    (d,NoteOn  x m v) = (d,NoteOn    x (m+1) v)
 hight    (d,NoteOff x m v) = (d,NoteOff   x (m+1) v)
 hight    m                 = m
-blanche::Num a => (a, Message) -> (a, Message)
+blanche::(Ticks,Message) -> (Ticks,Message)
 blanche  (d,NoteOn  x m v) = (d,NoteOn    x  m    v)
 blanche  (d,NoteOff x m v) = (d+d,NoteOff x  m    v)
 blanche  m                 = m

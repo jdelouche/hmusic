@@ -5,6 +5,7 @@ import Data.List.Split
 import System.IO
 import Data.Music
 import Data.Typeable
+import Control.Monad
 data GMain = Gmain { tkos::[[String]] }
 tup f1 f2 f3 = foldr (\t trs -> case t of
                             (a:[])     -> f1 a trs
@@ -18,8 +19,11 @@ codecmulti n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.M
 looping (Gmain y) = do allx@(x:xs) <- getLine
                        case x of
                               'q' -> do let trs@(tr1,tr2,tr3) = (one y,two y,thr y)
+                                        putStr "Channel 1> "
                                         print tr1
+                                        putStr "Channel 2> "
                                         print tr2
+                                        putStr "Channel 3> "
                                         print tr3
                                         let m1 = (foldr (\x a -> (notmi 1 x)++a ) [] tr1)
                                         let m2 = (foldr (\x a -> (notmi 1 x)++a ) [] tr2)
@@ -27,16 +31,6 @@ looping (Gmain y) = do allx@(x:xs) <- getLine
                                         exportFile "mymusic.mid" (codecmulti [m1,m2,m3])
                               _   -> readLine y allx
 readLine y x = do let f = filter (/="") (splitOn " " x)
-                  print "y="
-                  print (typeOf y)
-                  print y
-                  print "f="
-                  print (typeOf f)
-                  print f
-                  let f' = foldr (\rbx a ->  (splitOn "," rbx)++a) [] f
-                  print "f'="
-                  print (typeOf f')
-                  print f'
                   looping (Gmain (y++[f]))
 main :: IO ()
 main = looping (Gmain [])

@@ -26,8 +26,8 @@ looping (Gmain y) = do allx@(x:xs) <- getLine
                                         putStr "Channel 3> "
                                         print tr3
                                         let m1 = (foldr (\x a -> (notmi 1 x)++a ) [] tr1)
-                                        let m2 = (foldr (\x a -> (notmi 1 x)++a ) [] tr2)
-                                        let m3 = (foldr (\x a -> (notmi 1 x)++a ) [] tr3)
+                                        let m2 = (foldr (\x a -> (notmi 2 x)++a ) [] tr2)
+                                        let m3 = (foldr (\x a -> (notmi 3 x)++a ) [] tr3)
                                         exportFile "mymusic.mid" (codecmulti [m1,m2,m3])
                               _   -> readLine y allx
 readLine y x = do let f = filter (/="") (splitOn " " x)

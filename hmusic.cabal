@@ -37,19 +37,3 @@ executable hmusic
                        listsafe
   hs-source-dirs:      src
   default-language:    Haskell2010
-
-test-suite tests
-   type: exitcode-stdio-1.0
-   hs-source-dirs: src
-   ghc-options: -O3 -Wall
-   other-modules:       Data.Music
-   build-depends:
-       HCodecs
-     , base < 5
-     , bytestring
-     , random
-     , semigroups
-     , array >= 0.4
-     , QuickCheck >= 2.0
- 
-   main-is: Data/Internal/TestSuite.hs

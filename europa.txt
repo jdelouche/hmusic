@@ -1,22 +1,97 @@
 #m1
-a1-,d2,e2,f2,e2,d2,c2,lb1_
+a1- pause
+#   pause
+d2  pause
+e2  pause
+f2  pause
+e2  pause
+d2  pause
+c2  pause
+lb1 lb1_
+a1
+lb1-
 #m2
-lb1-,c2,d2,e2,d2,c2,g1,a1_
+lb1-
+#   pause
+#   pause
+c2  pause
+d2  pause
+e2  pause
+d2  pause
+c2  pause
+g1  pause
+a1  a1_
+g1 
+a1-
 #m3
-a1-,lb1,c2,d2,c2,lb1,a1,g1_
+a1- pause
+#   pause
+lb1 pause
+c2 pause
+d2 pause
+c2 pause
+lb1 pause
+a1 pause
+g1 g1_
+f1
+g1-
 #m4
-g1-,a1,lb1,c2,lb1,a1,g1,f1_
+g1-
+a1
+lb1
+c2
+lb1
+a1
+g1
+f1_
 #m5
-g1,f1,d1,c1,d1_
+g1
+f1
+d1
+c1
+d1_
 #m6
-g2-,lb2-,d3,d3-,c3,lb2,c3_
+g2-
+lb2-
+d3
+d3-
+c3
+lb2
+c3_
 #m7
-d3,c3,lb2,c3,d3,c3,lb2,g2_
+d3
+c3
+lb2
+c3
+d3
+c3
+lb2
+g2_
 #m8
-g2,a2,lb2,c3,lb2,a2,g2,a2,g2,a2_
+g2
+a2
+lb2
+c3
+lb2
+a2
+g2
+a2
+g2
+a2_
 #m9
-a2-,c3,lb2,lb2,a2,a2,g2,g2-
+a2-
+c3
+lb2
+lb2
+a2
+a2
+g2
+g2-
 #m10
-g2,f2,d2,c2,d2_
-end,q
+g2
+f2
+d2
+c2
+d2_
+end end end
 q

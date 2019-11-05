@@ -1,1 +1,0 @@
-start,c0,hc0,d0,hd0,e0,f0,hf0,g0,hg0,a0,b0,c1,hc1,d1,hd1,e1,f1,hf1,g1,hg1,a1,b1,c2,hc2,d2,hd2,e2,f2,hf2,g2,hg2,a2,b2,c3,hc3,d3,hd3,e3,f3,hf3,g3,hg3,a3,b3,c4,hc4,d4,hd4,e4,f4,hf4,g4,hg4,a4,b4,fin,q,

@@ -30,8 +30,5 @@ c3
 e3
 d3
 d3
-c3
-c3
-c3
 fin
 q

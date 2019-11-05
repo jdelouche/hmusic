@@ -8,7 +8,6 @@ hf0
 g0
 hg0
 a0
-ha0
 b0
 c1
 hc1
@@ -20,7 +19,6 @@ hf1
 g1
 hg1
 a1
-ha1
 b1
 c2
 hc2
@@ -32,7 +30,6 @@ hf2
 g2
 hg2
 a2
-ha2
 b2
 c3
 hc3
@@ -44,7 +41,6 @@ hf3
 g3
 hg3
 a3
-ha3
 b3
 c4
 hc4
@@ -56,7 +52,6 @@ hf4
 g4
 hg4
 a4
-ha4
 b4
 fin
 q

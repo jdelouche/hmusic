@@ -1,14 +1,5 @@
-g0
-e0
-c0,e0,g0
-g1
-e1
-c1,e1,g1
-g2
-e2
-c2,e2,g2
-g3
-e3
-c3,e3,g3
-end
+c1_ e1_ g1_
+e1_ g1_ a1_
+g1_ a1_ b1_
+end end end
 q

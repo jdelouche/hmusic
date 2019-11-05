@@ -7,22 +7,22 @@ f2  pause
 e2  pause
 d2  pause
 c2  pause
-lb1_ lb1
-#    a1
-#    lb1-
+lb1 lb1_
+a1
+lb1-
 #m2
 lb1-
 #   pause
 #   pause
-c2 pause
-d2 pause
-e2 pause
-d2 pause
-c2 pause
-g1 pause
-a1_ a1
-#   g1
-#   a1-
+c2  pause
+d2  pause
+e2  pause
+d2  pause
+c2  pause
+g1  pause
+a1  a1_
+g1 
+a1-
 #m3
 a1- pause
 #   pause
@@ -32,9 +32,9 @@ d2 pause
 c2 pause
 lb1 pause
 a1 pause
-g1_ g1
-#   f1
-#   g1-
+g1 g1_
+f1
+g1-
 #m4
 g1-
 a1

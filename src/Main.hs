@@ -6,7 +6,7 @@ import System.IO
 import Data.Music
 import Data.Typeable
 import Control.Monad
-data GMain = Gmain { tkos::[[String]] }
+data GMain = Gmain { tkos::[[String]] } deriving (Show,Eq)
 tup f1 f2 f3 = foldr (\t trs -> case t of
                             (a:[])     -> f1 a trs
                             (a:b:[])   -> f2 a b trs

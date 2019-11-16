@@ -1,0 +1,13 @@
+wc1 c1 c1 c1 c1 c1 c1 c1 c1 c1 c1 c1 c1 c1 c1 c1
+whc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1 hc1
+wd1 d1 d1 d1 d1 d1 d1 d1 d1 d1 d1 d1 d1 d1 d1 d1
+whd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1 hd1
+we1 e1 e1 e1 e1 e1 e1 e1 e1 e1 e1 e1 e1 e1 e1 e1
+wf1 f1 f1 f1 f1 f1 f1 f1 f1 f1 f1 f1 f1 f1 f1 f1
+whf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1 hf1
+wg1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1 g1
+whg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1 hg1
+wa1 a1 a1 a1 a1 a1 a1 a1 a1 a1 a1 a1 a1 a1 a1 a1
+wb1 b1 b1 b1 b1 b1 b1 b1 b1 b1 b1 b1 b1 b1 b1 b1
+wend end end end end end end end end end end end end end end end
+wq q q q q q q q q q q q q q q q

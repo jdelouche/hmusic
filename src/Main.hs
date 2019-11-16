@@ -1,36 +1,46 @@
 module Main where
 import Prelude
-import Codec.Midi
-import Data.List.Split
-import System.IO
-import Data.Music
+import Control.Monad.State
 import Data.Typeable
-import Control.Monad
-data GMain = Gmain { tkos::[[String]] } deriving (Show,Eq)
-tup f1 f2 f3 = foldr (\t trs -> case t of
-                            (a:[])     -> f1 a trs
-                            (a:b:[])   -> f2 a b trs
-                            (a:b:c:[]) -> f3 a b c trs
-                            _          -> "?":trs) []
-one = tup (\a trs -> a:trs) (\a _ trs -> a:trs) (\a _ _ trs -> a:trs)
-two = tup (\_ trs -> trs)   (\_ b trs -> b:trs) (\_ b _ trs -> b:trs)
-thr = tup (\_ trs -> trs)   (\_ _ trs -> trs)   (\_ _ c trs -> c:trs)
+import Data.Music
+import Codec.Midi
+
+type SplitValue = (String,[String])
+type SplitState = (Bool, SplitValue)
+
+split :: Char -> String -> State SplitState SplitValue
+split sep ""     = do
+    (state,(val,tab)) <- get
+    case state of
+         True -> put (False,("",tab))
+         _    -> put (False,("",tab++[val]))
+    return ("",[])
+
+split sep (x:xs) = do
+    (state, (val,tab)) <- get
+    case x == sep of
+         True | (state == True)  -> put (True, ("",tab))
+         True | (state == False) -> put (True, ("",tab++[val]))
+         _                      -> put (False, (val++[x],tab))
+    split sep xs
+
+startSplit = (True,("",[]))
+doSplit :: Char -> String -> [String]
+doSplit sep line = (snd $ snd $ execState (split sep line) (startSplit))
+
+parse d      = fmap (\line -> (doSplit ' ' line)) $ doSplit '\n' d
+col n        = fmap (\x -> x!!n)
+zipn f t nbc = [fmap (\i -> f i t) [0..nbc-1]]
+zipit d      = foldr  (\x a -> x ++ a) [] (zipn col d (mins d))
+mins  d      = foldr min (maxBound::Int) (fmap length d)
+notmis t     = foldr (\x a -> (notmi 1 x)++a ) [] t
 codecmulti n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
-looping (Gmain y) = do allx@(x:xs) <- getLine
-                       case x of
-                              'q' -> do let trs@(tr1,tr2,tr3) = (one y,two y,thr y)
-                                        putStr "Channel 1> "
-                                        print tr1
-                                        putStr "Channel 2> "
-                                        print tr2
-                                        putStr "Channel 3> "
-                                        print tr3
-                                        let m1 = (foldr (\x a -> (notmi 1 x)++a ) [] tr1)
-                                        let m2 = (foldr (\x a -> (notmi 2 x)++a ) [] tr2)
-                                        let m3 = (foldr (\x a -> (notmi 3 x)++a ) [] tr3)
-                                        exportFile "mymusic.mid" (codecmulti [m1,m2,m3])
-                              _   -> readLine y allx
-readLine y x = do let f = filter (/="") (splitOn " " x)
-                  looping (Gmain (y++[f]))
-main :: IO ()
-main = looping (Gmain [])
+loop d       = do x <- getChar
+                  case x of
+                       'q' -> do putStrLn ""
+                                 let l = parse d
+                                     m = zipit l
+                                     score = fmap notmis m 
+                                 exportFile "mymusic.mid" (codecmulti score)
+                       _   -> loop $ d++[x]
+main         = loop ""

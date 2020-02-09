@@ -2,7 +2,7 @@ module Main where
 import Prelude
 import Control.Monad.State
 import Data.Typeable
-import Data.Music
+import Data.Music.Music
 import Codec.Midi
 
 type SplitValue = (String,[String])
@@ -30,8 +30,8 @@ doSplit sep line = (snd $ snd $ execState (split sep line) (startSplit))
 
 parse d      = fmap (\line -> (doSplit ' ' line)) $ doSplit '\n' d
 col n        = fmap (\x -> x!!n)
-zipn f t nbc = [fmap (\i -> f i t) [0..nbc-1]]
-zipit d      = foldr  (\x a -> x ++ a) [] (zipn col d (mins d))
+track f t nbc = [fmap (\i -> f i t) [0..nbc-1]]
+trackn d      = foldr  (\x a -> x ++ a) [] (track col d (mins d))
 mins  d      = foldr min (maxBound::Int) (fmap length d)
 notmis t     = foldr (\x a -> (notmi 1 x)++a ) [] t
 codecmulti n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
@@ -39,7 +39,7 @@ loop d       = do x <- getChar
                   case x of
                        'q' -> do putStrLn ""
                                  let l = parse d
-                                     m = zipit l
+                                     m = trackn l
                                      score = fmap notmis m 
                                  exportFile "mymusic.mid" (codecmulti score)
                        _   -> loop $ d++[x]

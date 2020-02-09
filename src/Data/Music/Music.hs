@@ -1,4 +1,4 @@
-module Data.Music where
+module Data.Music.Music where
 import Prelude
 import Codec.Midi
 notmi::Int -> String -> [(Ticks,Message)]

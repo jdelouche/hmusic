@@ -3,7 +3,7 @@ module Data.Ampli.Ampli where
 import Data.Ampli.Hylo
 data StreamF  e a = StreamF e a deriving (Functor,Show)
 data ChannelF e a = NilF | ChannelF e a deriving (Functor,Show)
-type Carrier    = Either Sender Receiver
+type Carrier    = Either Receiver Sender
 type Transfer   = Maybe Int
 type ConnectorF = ChannelF Transfer
 type InterfaceF = ConnectorF Carrier
@@ -12,8 +12,8 @@ input   :: Carrier -> Fix (ConnectorF)
 output  = cata send
 input   = ana receive
 ampli = (output . input)
-type Receiver = [Int]
-type Sender   = [Char]
+type Receiver = [Char]
+type Sender   = [Int]
 send::               InterfaceF -> Carrier
 receive:: Carrier -> InterfaceF
 send   (ChannelF Nothing   (Right p))  = (Right p)

@@ -1,5 +1,6 @@
 {-# LANGUAGE DeriveFunctor #-}
 module Data.Ampli.Ampli where
+import Prelude
 import Data.Ampli.Hylo
 data StreamF  e a = StreamF e a deriving (Functor,Show)
 data ChannelF e a = NilF | ChannelF e a deriving (Functor,Show)

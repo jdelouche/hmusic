@@ -29,18 +29,21 @@ receive (Left ('#':s))      = ChannelF (Just [(0,Text s)]) (Left [])
 receive (Left "end")        = ChannelF (Just [(0,TrackEnd)]) (Left [])
 receive (Left "fin")        = ChannelF (Just [(0,TrackEnd)]) (Left [])
 receive (Left (a:l:o:d:[])) = ChannelF (Just (alod (a:l:o:d:[]))) (Left [])
+receive (Left (a:l:o:[]))   = ChannelF (Just (alo  (a:l:o:[])))   (Left [])
+receive (Left (l:o:[]))     = ChannelF (Just (lo   (l:o:[])))     (Left [])
+receive (Left (l:[]))       = ChannelF (Just (lo   (l:'1':[])))   (Left [])
 receive (Left (p      :ns)) = ChannelF (Nothing) (Left ns)
 alod (a:l:o:d:[]) = case d of
                          '-' -> fmap blanche (alo (a:l:o:[]))
                          '_' -> fmap (blanche . blanche) (alo (a:l:o:[]))
                          _   -> alo (a:l:o:[])
-alo (a:l:o:[])   = case o of
-                        '-' -> fmap blanche (lo (a:l:[]))
-                        '_' -> fmap (blanche . blanche) (lo (a:l:[]))
-                        _   -> case a of
-                                      'l' -> fmap low (lo (l:o:[]))
-                                      'h' -> fmap hight (lo (l:o:[]))
-                                      _   -> lo (l:o:[])
+alo (x:y:z:[])   = case z of
+                        '-' -> fmap blanche (lo (x:y:[]))
+                        '_' -> fmap (blanche . blanche) (lo (x:y:[]))
+                        _   -> case x of
+                                      'l' -> fmap low (lo (y:z:[]))
+                                      'h' -> fmap hight (lo (y:z:[]))
+                                      _   -> lo (x:y:[])
 lo (l:o:[]) = let m = case o of
                              '0' -> 48
                              '1' -> 60

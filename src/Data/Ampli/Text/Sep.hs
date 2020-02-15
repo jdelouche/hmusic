@@ -12,7 +12,8 @@ input   :: Carrier -> Fix (ConnectorF)
 output  = cata send
 input   = ana receive
 ampli   = (output . input)
-type Transfer = Maybe (Int,Char) 
+type Token    = (Int,Char) 
+type Transfer = Maybe Token 
 type Receiver = (Int,[Char])
 type Sender   = [(Int,[Char])]
 send::               InterfaceF -> Carrier

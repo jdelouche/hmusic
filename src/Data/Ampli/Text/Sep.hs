@@ -14,20 +14,20 @@ input   = ana receive
 ampli   = (output . input)
 type Token    = (Int,Char) 
 type Transfer = Maybe Token 
-type Receiver = (Int,[Char])
+type Receiver = (Bool,Int,[Char])
 type Sender   = [(Int,[Char])]
 send::               InterfaceF -> Carrier
 receive:: Carrier -> InterfaceF
 send    (ChannelF Nothing       (Right s))  = (Right s)
 send    (ChannelF (Just (c,e))  (Right s))  = (Right (append c e s))
 send    (NilF)                              = (Right [])
-receive (Left (_,[]))     = NilF
-receive (Left (c,' ':r))  = ChannelF Nothing      (Left (c+1,r))
-receive (Left (c,'\n':r)) = ChannelF Nothing      (Left (1,r))
-receive (Left (c,e:r))    = ChannelF (Just (c,e)) (Left (c,r))
+receive (Left (p,_,[]))     = NilF
+receive (Left (p,c,' ':r))  = ChannelF Nothing      (Left $ if (p /= True) then (True,c+1,r) else (p,c,r))
+receive (Left (p,c,'\n':r)) = ChannelF Nothing      (Left (False,1,r))
+receive (Left (p,c,e:r))    = ChannelF (Just (c,e)) (Left (False,c,r))
 append::Int->Char->Sender->Sender
 append c e [] = (c,e:[]):[]
 append c e s  = if (or $ fmap (\(i,x) -> i == c) s) then fmap (add c e) s else (c,e:[]):s
 add::Int->Char->(Int,[Char])->(Int,[Char])
 add c e (x,str) = if (c==x) then (x,e:str) else (x,str)
-main = do print $ ampli $ Left (1,"a b c d\ne f g h \nj k l m\n")
+main = do print $ ampli $ Left (False,1,"a   b c d\ne f g h   \nj k l m\n")

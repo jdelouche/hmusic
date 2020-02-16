@@ -15,36 +15,36 @@ input   :: Carrier -> Fix (ConnectorF)
 output  = cata send
 input   = ana receive
 ampli   = (output . input)
-type Receiver = [Char]
+type Receiver = (Int,[Char])
 type Sender   = [(Ticks,Message)]
 send::               InterfaceF -> Carrier
 receive:: Carrier -> InterfaceF
 send   (ChannelF Nothing   (Right p))  = (Right p)
 send   (ChannelF (Just i)  (Right p))  = (Right (p ++ i))
 send   (NilF)                          = (Right [])
-receive (Left [])           = NilF
-receive (Left ('>':s))      = ChannelF (Just [(0,Copyright s)]) (Left [])
-receive (Left "pause")      = ChannelF (Just [(0,  NoteOn 1 60 0),(24, NoteOff 1 60 0)]) (Left [])
-receive (Left ('#':s))      = ChannelF (Just [(0,Text s)]) (Left [])
-receive (Left "end")        = ChannelF (Just [(0,TrackEnd)]) (Left [])
-receive (Left "fin")        = ChannelF (Just [(0,TrackEnd)]) (Left [])
-receive (Left (a:l:o:d:[])) = ChannelF (Just (alod (a:l:o:d:[]))) (Left [])
-receive (Left (a:l:o:[]))   = ChannelF (Just (alo  (a:l:o:[])))   (Left [])
-receive (Left (l:o:[]))     = ChannelF (Just (lo   (l:o:[])))     (Left [])
-receive (Left (l:[]))       = ChannelF (Just (lo   (l:'1':[])))   (Left [])
-receive (Left (p      :ns)) = ChannelF (Nothing) (Left ns)
-alod (a:l:o:d:[]) = case d of
-                         '-' -> fmap blanche (alo (a:l:o:[]))
-                         '_' -> fmap (blanche . blanche) (alo (a:l:o:[]))
-                         _   -> alo (a:l:o:[])
-alo (x:y:z:[])   = case z of
-                        '-' -> fmap blanche (lo (x:y:[]))
-                        '_' -> fmap (blanche . blanche) (lo (x:y:[]))
+receive (Left (c,[]))           = NilF
+receive (Left (c,('>':s)))      = ChannelF (Just [(0,Copyright s)])     (Left (c,[]))
+receive (Left (c,"pause"))      = ChannelF (Just [(0,  NoteOn c 60 0),(24, NoteOff c 60 0)]) (Left (c,[]))
+receive (Left (c,('#':s)))      = ChannelF (Just [(0,Text s)])          (Left (c,[]))
+receive (Left (c,"end"))        = ChannelF (Just [(0,TrackEnd)])        (Left (c,[]))
+receive (Left (c,"fin"))        = ChannelF (Just [(0,TrackEnd)])        (Left (c,[]))
+receive (Left (c,(a:l:o:d:[]))) = ChannelF (Just (alod c (a:l:o:d:[]))) (Left (c,[]))
+receive (Left (c,(a:l:o:[])))   = ChannelF (Just (alo  c (a:l:o:[])))   (Left (c,[]))
+receive (Left (c,(l:o:[])))     = ChannelF (Just (lo   c (l:o:[])))     (Left (c,[]))
+receive (Left (c,(l:[])))       = ChannelF (Just (lo   c (l:'1':[])))   (Left (c,[]))
+receive (Left (c,(p      :ns))) = ChannelF (Nothing)                    (Left (c,ns))
+alod c (a:l:o:d:[]) = case d of
+                         '-' -> fmap blanche (alo c (a:l:o:[]))
+                         '_' -> fmap (blanche . blanche) (alo c (a:l:o:[]))
+                         _   -> alo c (a:l:o:[])
+alo c (x:y:z:[])   = case z of
+                        '-' -> fmap blanche (lo c (x:y:[]))
+                        '_' -> fmap (blanche . blanche) (lo c (x:y:[]))
                         _   -> case x of
-                                      'l' -> fmap low (lo (y:z:[]))
-                                      'h' -> fmap hight (lo (y:z:[]))
-                                      _   -> lo (x:y:[])
-lo (l:o:[]) = let m = case o of
+                                      'l' -> fmap low   (lo c (y:z:[]))
+                                      'h' -> fmap hight (lo c (y:z:[]))
+                                      _   -> lo c (x:y:[])
+lo c (l:o:[]) = let m = case o of
                              '0' -> 48
                              '1' -> 60
                              '2' -> 72
@@ -52,12 +52,17 @@ lo (l:o:[]) = let m = case o of
                              '4' -> 96
                              _   -> 60
                              in case l of
-                                     'c' -> [(0,  NoteOn 1 m      80),(24, NoteOff 1 m      0)] 
-                                     'd' -> [(0,  NoteOn 1 (m+2)  80),(24, NoteOff 1 (m+2)  0)] 
-                                     'e' -> [(0,  NoteOn 1 (m+4)  80),(24, NoteOff 1 (m+4)  0)] 
-                                     'f' -> [(0,  NoteOn 1 (m+5)  80),(24, NoteOff 1 (m+5)  0)] 
-                                     'g' -> [(0,  NoteOn 1 (m+7)  80),(24, NoteOff 1 (m+7)  0)] 
-                                     'a' -> [(0,  NoteOn 1 (m+9)  80),(24, NoteOff 1 (m+9)  0)] 
-                                     'b' -> [(0,  NoteOn 1 (m+11) 80),(24, NoteOff 1 (m+11) 0)] 
-                                     _   -> [(0,  NoteOn 1 m      80),(24, NoteOff 1 m      0)] 
-
+                                     'c' -> [(0, NoteOn c m      80),(24, NoteOff c m      0)] 
+                                     'd' -> [(0, NoteOn c (m+2)  80),(24, NoteOff c (m+2)  0)] 
+                                     'e' -> [(0, NoteOn c (m+4)  80),(24, NoteOff c (m+4)  0)] 
+                                     'f' -> [(0, NoteOn c (m+5)  80),(24, NoteOff c (m+5)  0)] 
+                                     'g' -> [(0, NoteOn c (m+7)  80),(24, NoteOff c (m+7)  0)] 
+                                     'a' -> [(0, NoteOn c (m+9)  80),(24, NoteOff c (m+9)  0)] 
+                                     'b' -> [(0, NoteOn c (m+11) 80),(24, NoteOff c (m+11) 0)] 
+                                     _   -> [(0, NoteOn c m      80),(24, NoteOff c m      0)] 
+test = do print $ ampli $ Left (1,"a1")
+          print $ ampli $ Left (1,"lb1-")
+          print $ ampli $ Left (1,"b1_")
+          print $ ampli $ Left (1,"c2_-")
+          print $ ampli $ Left (1,"hc2__")
+          print $ ampli $ Left (1,"d2")

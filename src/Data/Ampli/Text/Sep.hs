@@ -12,25 +12,25 @@ input   :: Carrier -> Fix (ConnectorF)
 output  = cata send
 input   = ana receive
 ampli   = (output . input)
-type Token    = (Int,Char) 
+type Token    = (Int,Int,Char) 
 type Transfer = Maybe Token 
-type Receiver = (Bool,Int,[Char])
-type Sender   = [(Int,[Char])]
+type Receiver = (Bool,Int,Int,String)
+type Sender   = [(Int,Int,String)]
 send::               InterfaceF -> Carrier
 receive:: Carrier -> InterfaceF
-send    (ChannelF Nothing       (Right s))  = (Right s)
-send    (ChannelF (Just (c,e))  (Right s))  = (Right (append c e s))
-send    (NilF)                              = (Right [])
-receive (Left (p,_,[]))         = NilF
-receive (Left (False,c,' ':r))  = ChannelF (Just (c,' ')) (Left (True,c+1,r))
-receive (Left (True,c,' ':r))   = ChannelF Nothing        (Left (True,c,r))
-receive (Left (p,c,'\n':r))     = ChannelF (Just (c,' ')) (Left (False,1,r))
-receive (Left (p,c,e:r))        = ChannelF (Just (c,e))   (Left (False,c,r))
-append::Int->Char->Sender->Sender
-append c e [] = (c,e:[]):[]
-append c e s  = if (or $ fmap (\(i,x) -> i == c) s) then fmap (add c e) s else (c,e:[]):s
-add::Int->Char->(Int,[Char])->(Int,[Char])
-add c e (x,str) = if (c==x) then (x,e:str) else (x,str)
-test = do print $ ampli $ Left (False,1,"11 21 31\n"++
-                                        "12 22 32\n"++
-                                        "13 23 33\n")
+send    (ChannelF Nothing         (Right s)) = (Right s)
+send    (ChannelF (Just (c,l,e))  (Right s)) = (Right ((table c l e s)))
+send    (NilF)                               = (Right [])
+receive (Left (p    ,_,_,    [])) = NilF
+receive (Left (False,c,l, ' ':r)) = ChannelF Nothing          (Left (True,c+1,l  ,r))
+receive (Left (True ,c,l, ' ':r)) = ChannelF Nothing          (Left (True,c  ,l  ,r))
+receive (Left (p    ,c,l,'\n':r)) = ChannelF Nothing          (Left (False,1 ,l+1,r))
+receive (Left (p    ,c,l,   e:r)) = ChannelF (Just (c,l,e))   (Left (False,c ,l  ,r))
+table::Int->Int->Char->Sender->Sender
+table c l e [] = [(c,l,[e])]
+table c l e s  = if (or [x==c && y==l|(x,y,z)<-s]) 
+                 then [(x,y,e:z) | (x,y,z)<-s,x==c && y==l]++[(x,y,z)|(x,y,z)<-s,not (x==c && y==l)]
+                 else [(c,l,[e])]++s
+test = do print $ ampli $ Left (False,1,1,"11 21 31\n"++
+                                          "12 22 32\n"++
+                                          "13 23 33\n")

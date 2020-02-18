@@ -41,6 +41,7 @@ loop d       = do x <- getChar
                                  let l = parse d
                                      m = trackn l
                                      score = fmap notmis m 
+                                 print score
                                  exportFile "mymusic.mid" (codecmulti score)
                        _   -> loop $ d++[x]
 main         = loop ""

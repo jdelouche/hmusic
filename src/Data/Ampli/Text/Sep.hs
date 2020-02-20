@@ -15,17 +15,15 @@ ampli   = (output . input)
 type Token    = (Int,Int,Char) 
 type Transfer = Maybe Token 
 type Receiver = (Bool,Int,Int,String)
-type Sender   = [(Int,(Int,String))]
+type Sender   = [(Int,Int,String)]
 elm::Int->Int->Sender->Bool
-elm   c l s  = (or [x==c && y==l|(x,(y,z))<-s]) 
+elm   c l s  = (or [x==c && y==l|(x,y,z)<-s]) 
 firstelm::Int->Int->Char->Sender
-firstelm  c l e    = [(c,(l,[e]))]
+firstelm  c l e    = [(c,l,[e])]
 insertelm::Int->Int->Char->Sender->Sender
-insertelm c l e s  = (update c l e s)++(next c l e s)
-update c l e s  = [(x,(y,e:z)) | (x,(y,z))<-s,x==c && y==l]
-next   c l e s  = [(x,(y,z))|(x,(y,z))<-s,not (x==c && y==l)]
+insertelm c l e s  = [(x,y,e:z) | (x,y,z)<-s,x==c && y==l]++[(x,y,z)|(x,y,z)<-s,not (x==c && y==l)]
 addelm::Int->Int->Char->Sender->Sender
-addelm    c l e s  = [(c,(l,[e]))]++s
+addelm    c l e s  = [(c,l,[e])]++s
 table::Bool->Int->Int->Char->Sender->Sender
 table _     c l e [] = firstelm c l e
 table True  c l e s  = insertelm c l e s

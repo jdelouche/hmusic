@@ -1,7 +1,7 @@
 # hmusic
 Midi haskell music
 
-Usage en ligne de commande sur MacOsx avec VLC
+Command line:
 
 cabal install && cat europa.txt | dist/build/hmusic/hmusic && /Applications/VLC.app/Contents/MacOS/VLC -I dummy mymusic.mid vlc://quit
 
@@ -9,13 +9,20 @@ input : europa.txt
 
 output : mymusic.mid
 
-Exemple de syntaxe: noire do, blanche do, ronde blanche, do bemol, do diese 
+Syntaxe: 
+>
+     #m1  #
+     a1- pause
+     #   pause
+     d2  pause
+     e2  pause
+     f2  pause
+     e2  pause
+     d2  pause
+     c2  pause
+     lb1 lb1_
 
-c1
-e1-
-g1_
 
-
-Import du fichier .mid avec https://musescore.org/fr
+The midi file can be uesed with https://musescore.org/fr
 
 

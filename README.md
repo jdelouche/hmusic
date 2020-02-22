@@ -25,8 +25,10 @@ Syntaxe:
 
 
 
-Using HCodecs from http://hackage.haskell.org/package/HCodecs
-
 The midi file can be used with https://musescore.org/fr
 
 ![Europa](museScoreEuropa.png)
+
+Using HCodecs from http://hackage.haskell.org/package/HCodecs
+
+And using Hylomorphism: [Diagrammes](diagrammes.pdf)

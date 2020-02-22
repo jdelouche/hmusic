@@ -5,7 +5,7 @@ Command line:
 
 cabal install && cat europa.txt | dist/build/hmusic/hmusic && /Applications/VLC.app/Contents/MacOS/VLC -I dummy mymusic.mid vlc://quit
 
-input : europa.txt
+input  : europa.txt
 
 output : mymusic.mid
 
@@ -23,7 +23,6 @@ Syntaxe:
     lb1 lb1_
     end end
 
+The midi file can be used with https://musescore.org/fr
 
-The midi file can be uesed with https://musescore.org/fr
-
-
+Using HCodecs from http://hackage.haskell.org/package/HCodecs

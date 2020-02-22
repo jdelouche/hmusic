@@ -3,8 +3,8 @@ cabal-version:       2.4
 
 name:                hmusic
 version:             0.1.0.1
-synopsis:            Write a text a file and get a midi file
-description:         txt music file parser to midii, written with hylomorphism
+synopsis:            Write a text in a file and get a midi file
+description:         A txt music file parser to midi, based on hylomorphism
 -- bug-reports:
 license:             MIT
 license-file:        LICENSE

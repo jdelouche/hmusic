@@ -23,6 +23,10 @@ Syntaxe:
     lb1 lb1_
     end end
 
-The midi file can be used with https://musescore.org/fr
+
 
 Using HCodecs from http://hackage.haskell.org/package/HCodecs
+
+The midi file can be used with https://musescore.org/fr
+
+![Europa](museScoreEuropa.png)

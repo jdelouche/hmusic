@@ -11,16 +11,17 @@ output : mymusic.mid
 
 Syntaxe: 
 >
-     #m1  #
-     a1- pause
-     #   pause
-     d2  pause
-     e2  pause
-     f2  pause
-     e2  pause
-     d2  pause
-     c2  pause
-     lb1 lb1_
+    #m1  #
+    a1- pause
+    #   pause
+    d2  pause
+    e2  pause
+    f2  pause
+    e2  pause
+    d2  pause
+    c2  pause
+    lb1 lb1_
+    end end
 
 
 The midi file can be uesed with https://musescore.org/fr

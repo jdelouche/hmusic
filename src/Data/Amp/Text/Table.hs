@@ -25,7 +25,9 @@ receive (Left ([]   ,_)) = NilF
 receive (Left (p:ps,s )) = ChannelF (getline p s) (Left (ps,filterline p s))
 getline    p s = [ (c,z)   |(c,l,z)<-s,c==p]
 filterline p s = [ (c,l,z) |(c,l,z)<-s,c/=p]
-test = do print $ amp 
-                $ Left ([1..],[(1,1,"11"),(2,1,"21"),(3,1,"31"),
-                               (1,2,"12"),(2,2,"22"),(3,2,"32"),
-                               (1,3,"13"),(2,3,"23"),(3,3,"33")])
+unRight (Right x) = x
+table x = unRight $ amp $ Left ([1..],x)
+test = do print $ table 
+                $ [(1,1,"11"),(2,1,"21"),(3,1,"31"),
+                   (1,2,"12"),(2,2,"22"),(3,2,"32"),
+                   (1,3,"13"),(2,3,"23"),(3,3,"33")]

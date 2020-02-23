@@ -7,8 +7,8 @@ import Codec.Midi
 import Data.Typeable
 midi = fmap (foldr (\x a -> (_R_ $ Midi.amp (Left x))++a) [])
 unRight (Right a) = a
-(_R_)             = unRight
-parser x          = _R_ $ Table.amp $ Left ([1..],_R_ $ Sep.amp $ Left (False,1,1,x))
+(_R_)             = Main.unRight
+parser x          = Table.table $ Sep.sep x
 tomidi x          = midi $ parser x
 codecmulti n      = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
 loop d            = do 

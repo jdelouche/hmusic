@@ -38,6 +38,8 @@ receive (Left (False,c,l, ' ':r)) = ChannelF Nothing          (Left (True,c+1,l 
 receive (Left (True ,c,l, ' ':r)) = ChannelF Nothing          (Left (True,c  ,l  ,r))
 receive (Left (p    ,c,l,'\n':r)) = ChannelF Nothing          (Left (False,1 ,l+1,r))
 receive (Left (p    ,c,l,   e:r)) = ChannelF (Just (c,l,e))   (Left (False,c ,l  ,r))
-test = do print $ amp $ Left (False,1,1,"11 21 31\n"++
-                                          "12 22 32\n"++
-                                          "13 23 33\n")
+unRight (Right x) = x
+sep s = unRight $ amp $ Left (False,1,1,s)
+test  = do print $ sep $ "11 21 31\n"++
+                         "12 22 32\n"++
+                         "13 23 33\n"

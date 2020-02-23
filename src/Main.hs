@@ -5,11 +5,12 @@ import Data.Amp.Text.Sep        as Sep
 import Data.Amp.Text.Table      as Table
 import Codec.Midi
 import Data.Typeable
-midi = fmap (foldr (\x a -> (_R_ $ Midi.amp (Left x))++a) [])
+tmidi :: (Functor f, Foldable t) => f (t Midi.Receiver) -> f [(Ticks, Message)]
+tmidi = fmap (foldr (\x a -> (_R_ $ Midi.amp (Left x))++a) [])
 unRight (Right a) = a
 (_R_)             = Main.unRight
 parser x          = Table.table $ Sep.sep x
-tomidi x          = midi $ parser x
+tomidi x          = Main.tmidi $ parser x
 codecmulti n      = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
 loop d            = do 
                        exportFile "mymusic.mid" $ codecmulti $ tomidi d

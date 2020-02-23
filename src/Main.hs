@@ -22,4 +22,11 @@ loop d       = do
                                       _  -> loop $ init d
                        _      -> loop $ d++[x]
 main         = loop ""
-test = tomidi "c1 c1 c1 e2 d2 end"
+test = do let x= tomidi $ "c1 d1 e1\n"++
+                          "c1 d1 e1\n"++
+                          "c1 d1 e1\n"++
+                          "d1 e1 f1\n"++
+                          "e1 f1 g1\n"++
+                          "d1 e1 f1\n"++
+                          "end end end"
+          exportFile "test.mid" $ codecmulti $ x

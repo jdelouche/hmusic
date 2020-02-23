@@ -30,7 +30,7 @@ receive (Left (c,"fin"))        = ChannelF (Just [(0,TrackEnd)])        (Left (c
 receive (Left (c,(a:l:o:d:[]))) = ChannelF (Just (alod c (a:l:o:d:[]))) (Left (c,[]))
 receive (Left (c,(a:l:o:[])))   = ChannelF (Just (alo  c (a:l:o:[])))   (Left (c,[]))
 receive (Left (c,(l:o:[])))     = ChannelF (Just (lo   c (l:o:[])))     (Left (c,[]))
-receive (Left (c,(l:[])))       = ChannelF (Just (lo   c (l:'1':[])))   (Left (c,[]))
+receive (Left (c,(l:[])))       = ChannelF (Nothing)                    (Left (c,[]))
 receive (Left (c,(p      :ns))) = ChannelF (Nothing)                    (Left (c,ns))
 alod c (a:l:o:d:[]) = case d of
                          '-' -> fmap blanche (alo c (a:l:o:[]))
@@ -58,7 +58,8 @@ lo c (l:o:[]) = let m = case o of
                                      'g' -> [(0, NoteOn c (m+7)  80),(24, NoteOff c (m+7)  0)] 
                                      'a' -> [(0, NoteOn c (m+9)  80),(24, NoteOff c (m+9)  0)] 
                                      'b' -> [(0, NoteOn c (m+11) 80),(24, NoteOff c (m+11) 0)] 
-                                     _   -> [(0, NoteOn c m      80),(24, NoteOff c m      0)] 
+                                     _   -> [] 
+lo c (l:[]) = []
 low::(Ticks,Message) -> (Ticks,Message)
 low      (d,NoteOn  x m v) = (d,NoteOn    x (m-1) v)
 low      (d,NoteOff x m v) = (d,NoteOff   x (m-1) v)

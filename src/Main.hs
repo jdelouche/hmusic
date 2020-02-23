@@ -7,7 +7,9 @@ import Codec.Midi
 import Data.Typeable
 tmidi::[[(Int,[Char])]] -> [[(Ticks, Message)]]
 tmidi = fmap (foldr (\x a -> (Midi.midi x)++a) [])
+parser :: String -> [[(Int,[Char])]]
 parser x          = Table.table $ Sep.sep x
+tomidi :: String -> [[(Ticks, Message)]]
 tomidi x          = Main.tmidi $ parser x
 codecmulti n      = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
 loop d            = do 

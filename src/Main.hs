@@ -5,7 +5,7 @@ import Data.Amp.Text.Sep        as Sep
 import Data.Amp.Text.Table      as Table
 import Codec.Midi
 import Data.Typeable
-tmidi :: (Functor f, Foldable t) => f (t Midi.Receiver) -> f [(Ticks, Message)]
+tmidi :: [[(Int,[Char])]] -> [[(Ticks, Message)]]
 tmidi = fmap (foldr (\x a -> (_R_ $ Midi.amp (Left x))++a) [])
 unRight (Right a) = a
 (_R_)             = Main.unRight

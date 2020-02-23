@@ -71,7 +71,7 @@ blanche::(Ticks,Message) -> (Ticks,Message)
 blanche  (d,NoteOn  x m v) = (d,NoteOn    x  m    v)
 blanche  (d,NoteOff x m v) = (d+d,NoteOff x  m    v)
 blanche  m                 = m
-unRight x = x
+unRight (Right x) = x
 midi x = unRight $ amp $ Left x
 test = do print $ midi (1,"a1")
           print $ midi (2,"lb1-")

@@ -15,19 +15,28 @@ amp     = (output . input)
 type Token    = (Int,String)
 type Transfer = [Token]
 type Sender   = [Transfer]
-type Receiver = ([Int],[(Int,Int,String)])
+type Receiver = (Bool,[Int],[(Int,Int,String)])
 send::               InterfaceF -> Carrier
 receive:: Carrier -> InterfaceF
 send    (ChannelF line (Right s)) = (Right (line:s))
 send    (NilF)                    = (Right [])
-receive (Left (_   ,[])) = NilF
-receive (Left ([]   ,_)) = NilF
-receive (Left (p:ps,s )) = ChannelF (getline p s) (Left (ps,filterline p s))
+receive (Left (_,_   ,[])) = NilF
+receive (Left (_,[]   ,_)) = NilF
+receive (Left (False,p:ps,s )) = ChannelF (getline p s) (Left (False,ps,filterline p s))
+receive (Left (True,p:ps,s ))  = ChannelF (getcol  p s) (Left (True,ps,filtercol p s))
 getline    p s = [ (c,z)   |(c,l,z)<-s,c==p]
 filterline p s = [ (c,l,z) |(c,l,z)<-s,c/=p]
+getcol     p s = [ (l,z)   |(c,l,z)<-s,l==p]
+filtercol  p s = [ (c,l,z) |(c,l,z)<-s,l/=p]
 unRight (Right x) = x
-table x = unRight $ amp $ Left ([1..],x)
-test = do print $ table 
-                $ [(1,1,"11"),(2,1,"21"),(3,1,"31"),
-                   (1,2,"12"),(2,2,"22"),(3,2,"32"),
-                   (1,3,"13"),(2,3,"23"),(3,3,"33")]
+tableh x = unRight $ amp $ Left (True, [1..],x)
+tablev x = unRight $ amp $ Left (False,[1..],x)
+table = tablev
+testv = do print $ tablev
+                 $ [(1,1,"11"),(2,1,"21"),(3,1,"31"),
+                    (1,2,"12"),(2,2,"22"),(3,2,"32"),
+                    (1,3,"13"),(2,3,"23"),(3,3,"33")]
+testh = do print $ tableh
+                 $ [(1,1,"11"),(2,1,"21"),(3,1,"31"),
+                    (1,2,"12"),(2,2,"22"),(3,2,"32"),
+                    (1,3,"13"),(2,3,"23"),(3,3,"33")]

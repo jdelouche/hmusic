@@ -23,6 +23,7 @@ send   (ChannelF (Just i)  (Right p))  = (Right (p ++ i))
 send   (NilF)                          = (Right [])
 receive (Left (c,[]))           = NilF
 receive (Left (c,('>':s)))      = ChannelF (Just [(0,Copyright s)])     (Left (c,[]))
+receive (Left (c,"drums"))      = ChannelF (Just [(0,ProgramChange c 115)]) (Left (c,[]))
 receive (Left (c,"pause"))      = ChannelF (Just [(0,  NoteOn c 60 0),(24, NoteOff c 60 0)]) (Left (c,[]))
 receive (Left (c,"p"))          = ChannelF (Just [(0,  NoteOn c 60 0),(24, NoteOff c 60 0)]) (Left (c,[]))
 receive (Left (c,('#':s)))      = ChannelF (Just [(0,Text s)])          (Left (c,[]))

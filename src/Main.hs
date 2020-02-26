@@ -5,6 +5,7 @@ import Data.Amp.Text.Sep        as Sep
 import Data.Amp.Text.Table      as Table
 import Codec.Midi
 import Data.Typeable
+import System.IO
 midchannels::[[(Int,[Char])]] -> [[(Ticks, Message)]]
 midchannels = fmap (foldr (\x a -> (Midi.midi x)++a) [])
 parser :: ([(Int, Int, String)] -> [[(Int,String)]]) -> String -> [[(Int,[Char])]]
@@ -14,6 +15,7 @@ tomidi f x = midchannels $ parser f x
 codecmulti n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
 loop o s d       = do 
                   putStr d
+                  writeFile "mymusic.txt" d
                   let f = if o then Table.tableh else Table.tablev
                   if s then exportFile "mymusic.mid" $ codecmulti $ tomidi f d
                        else exportFile "mymusic.mid" $ codecmulti $ tomidi f []

@@ -25,6 +25,7 @@ receive (Left (c,[]))           = NilF
 receive (Left (c,('>':s)))      = ChannelF (Just [(0,Copyright s)])     (Left (c,[]))
 receive (Left (c,"drums"))      = ChannelF (Just [(0,ProgramChange c 115)]) (Left (c,[]))
 receive (Left (c,"piano"))      = ChannelF (Just [(0,ProgramChange c   1)]) (Left (c,[]))
+receive (Left (c,"flute"))      = ChannelF (Just [(0,ProgramChange c  74)]) (Left (c,[]))
 receive (Left (c,"pause"))      = ChannelF (Just [(0,  NoteOn c 60 0),(24, NoteOff c 60 0)]) (Left (c,[]))
 receive (Left (c,"p"))          = ChannelF (Just [(0,  NoteOn c 60 0),(24, NoteOff c 60 0)]) (Left (c,[]))
 receive (Left (c,('#':s)))      = ChannelF (Just [(0,Text s)])          (Left (c,[]))

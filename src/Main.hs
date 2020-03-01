@@ -17,6 +17,7 @@ loop o s d       = do
                   putStr d
                   writeFile "mymusic.txt" d
                   let f = if o then Table.tableh else Table.tablev
+                  print $ tomidi f d
                   if s then exportFile "mymusic.mid" $ codecmulti $ tomidi f d
                        else exportFile "mymusic.mid" $ codecmulti $ tomidi f []
                   x <- getChar

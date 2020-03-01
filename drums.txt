@@ -1,3 +1,17 @@
-/
-drums c1 c2 c1 c2 c1 c2 c1 c2 c1 c2 c1 c2 end
+/ piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  drums  #c0 c0 #hc0 hc0 #d0 d0 #hd0 hd0 #hd0 hd0 #hd0 hd0 #hd0 hd0 #e0 #f0 f0 #hf0 hf0 #g0 g0 #hg0 hg0 #a0 a0 #ha0 ha0 #b0 b0 #c1 c1 #hc1 hc1 #d1 d1 #hd1 hd1 #e1 e1 #f1 f1 #hf1 hf1 #g1 g1 #hg1 hg1 #a1 a1 #ha1 ha1 #b1 b1 #c2 c2 #hc2 hc2 #d2 d2 #hd2 hd2 #e2 e2 #f2 f2 #hf2 hf2 #g2 g2 #hg2 hg2 #a2 a2 #ha2 ha2 #b2 b2 #c3 c3 #hc3 hc3 #d3 d3 #hd3 hd3 #e3 e3 #f3 f3 #hf3 hf3 #g3 g3 #hg3 hg3 #a3 a3 #ha3 ha3 #b3 b3 #c4 c4 #c4 c4 #c4 c4 #c4 c4 #hc4 hc4 #d4 d4 #hd4 hd4 #e4 e4 #f4 f4 #hf4 hf4 #g4 g4 #hg4 hg4 #a4 a4 #ha4 ha4 #b4 b4 #c5 c5 #hc5 hc5 #d5 d5 #hd5 hd5 #hd5 hd5 #hd5 hd5 #hd5 hd5 #e5 e5 f5 #hf5 hf5 #g5 g5 #hg5 hg5 #a5 a5 #ha5 ha5 #b5 b5 #c6 c6 hc6 d6 hd6 e6 f6 hf6 g6 hg6 a6 ha6 b6 c7 hc7 d7 hd7 e7 f7 hf7 g7 hg7 a7 ha7 b7 end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
+  piano  p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   p   end
 q

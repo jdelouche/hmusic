@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveFunctor #-}
-module Data.Amp.Music.Midi.Midi where
+module Data.Amp.Music.Midi.Midi (midi) where
 import Prelude
 import Data.Amp.Hylo
 import Codec.Midi

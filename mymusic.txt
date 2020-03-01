@@ -1,4 +1,1 @@
-     c1 end
-piano c2 end
-flute c2 end
-drums c2 end
+a1

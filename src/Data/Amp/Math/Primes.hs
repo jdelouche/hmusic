@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveFunctor #-}
-module Data.Amp.Text.Table where
+module Data.Amp.Math.Primes (primes) where
 import Prelude
 import Data.Amp.Hylo
 data StreamF  e a = StreamF e a deriving (Functor,Show)
@@ -23,4 +23,6 @@ receive (Left [])      = NilF
 receive (Left (p:ps))  = ChannelF p (Left $ nomult p ps)
 notdiv  p n = n `mod` p /= 0
 nomult p = filter (notdiv p)
-test = do print $ amp $ Left [2..100]
+unRight (Right x) = x
+primes n = unRight $ amp $ Left [2..n]
+test = do print $ primes 100

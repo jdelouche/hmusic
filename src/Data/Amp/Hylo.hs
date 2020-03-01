@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveFunctor #-}
-module Data.Amp.Hylo where
+module Data.Amp.Hylo (Fix(Fix), unFix, cata, ana) where
 import Prelude
 data Fix f = Fix (f (Fix f))
 instance Show (Fix f) where show (Fix x)= "."

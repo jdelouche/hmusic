@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveFunctor #-}
-module Data.Amp.Text.Table where
+module Data.Amp.Text.Table (tablev,tableh) where
 import Prelude
 import Data.Amp.Hylo
 data StreamF  e a = StreamF e a deriving (Functor,Show)

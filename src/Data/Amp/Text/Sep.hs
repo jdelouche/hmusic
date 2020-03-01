@@ -1,5 +1,5 @@
 {-# LANGUAGE DeriveFunctor #-}
-module Data.Amp.Text.Sep where
+module Data.Amp.Text.Sep (sep) where
 import Prelude
 import Data.Amp.Hylo
 data StreamF  e a = StreamF e a deriving (Functor,Show)

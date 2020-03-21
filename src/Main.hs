@@ -13,18 +13,20 @@ parser f x = f $ Sep.sep x
 tomidi :: ([(Int, Int, String)] -> [[(Int,String)]]) -> String -> [[(Ticks, Message)]]
 tomidi f x = midchannels $ parser f x
 codecmulti n = Midi { fileType = MultiTrack, timeDiv  = TicksPerBeat 24, Codec.Midi.tracks   = n }
+writeFiles o s d = do
+  putStr d
+  writeFile "mymusic.txt" d
+  let f = if o then Table.tableh else Table.tablev
+  -- print $ tomidi f d
+  if s then exportFile "mymusic.mid" $ codecmulti $ tomidi f d
+       else exportFile "mymusic.mid" $ codecmulti $ tomidi f []
 loop o s d       = do 
-                  putStr d
-                  writeFile "mymusic.txt" d
-                  let f = if o then Table.tableh else Table.tablev
-                  -- print $ tomidi f d
-                  if s then exportFile "mymusic.mid" $ codecmulti $ tomidi f d
-                       else exportFile "mymusic.mid" $ codecmulti $ tomidi f []
                   x <- getChar
                   case x of
                        '|'       -> loop False s d
                        '/'       -> loop True  s d
-                       'q'       -> putStrLn ""
+                       'q'       -> do
+                                        writeFiles o s d
                        'z'       -> loop o False d
                        'y'       -> loop o True d
                        '\DEL'    -> case d of
